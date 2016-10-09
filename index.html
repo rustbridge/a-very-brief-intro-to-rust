@@ -12,38 +12,81 @@
 class: middle, center
 
 ![ferris](public/img/ferris.png)
-# a very brief intro to rust
+# A Very Brief Intro to Rust
 
 ---
 class: middle, left
 
-## install rust
+## Overview
 
-The best way to install Rust is with [rustup](https://www.rustup.rs/). rustup is a Rust
-version manager. To install it type:
+* What is Rust
+* Rust Philosophy
+* What is Cargo
+* Starting a project
+* Hello world!
+* Comments
+* Variables
+* Types
+* Functions
+* Conditionals (if and match)
 
-```
-curl https://sh.rustup.rs -sSf | sh
-```
+* Arrays and Vectors
+* Looping (ranges)
+* Tuples
+* Structs
+* Methods
+* Enums
+* Result and Option
+* `if let`
 
-To keep your rust up-to-date with the latest stable version of rust,
-type:
+* Strings
+* Slices
+* Ownership
+* References
 
-```
-rustup update
-```
+* Crates
+* Iterators
+* Closures
+* Threads
 
-To check which version of Rust you have type:
+* API docs
+* cargo doc --open
 
-```
-rustc -- version
-```
+* Things we didn't cover but that are things
+  * Tests
+  * FFI
+  * Traits
+  * Generics
+  * Macros
+  * Composition over inheritance
+  * Lifetimes
+
 ---
 class: middle, left
 
-## setting up a project
+## What is Rust?
 
-There are many ways to setup a project in Rust, but this is the simplest.
+Rust is a systems programming language that runs blazingly fast, prevents
+segfaults, and guarantees thread safety.
+
+* Favor explicit over implicit
+* Zero-cost abstractions
+* Only pay for what you use
+* Memory safety
+
+???
+
+// Define "systems programming"
+// Fast = as fast as C
+// segfaults = crashing because of mismanaged memory
+// Memory safety also covers buffer over/underflows
+
+---
+class: middle, left
+
+## Setting up a Project
+
+There are many ways to set up a project in Rust, but this is the simplest.
 
 1. Create a repository on Github
 2. Clone the repository
@@ -64,15 +107,15 @@ class: middle, left
 #### `lib.rs` vs `main.rs`
 
 There are 2 main types of projects you can make in Rust. A library and not
-a library. 
+a library.
 
 If you are writing a <strong>library</strong>, it means you intend for your
 code to be used in someone else's application as a crate or module.
 If you want to do this, you should use a `lib.rs`.
 
 If you are writing a <strong>not library</strong>, it means that you'd like
-to write code that compiles into a binary that someone can run. If you 
-want to do this, you need to use a `main.rs`. Inside the `main.rs` you 
+to write code that compiles into a binary that someone can run. If you
+want to do this, you need to use a `main.rs`. Inside the `main.rs` you
 should have a `main` function that looks like this:
 
 ```rust
@@ -107,6 +150,7 @@ There are a lot of types, but just to get you started:
 
 - `u32`: unsigned 32-bit integer
 - `i32`: signed 32-bit integer
+- `f64`: floating point number
 - `String` and/or `&str`: more on these below
 - `bool`: a boolean
 
