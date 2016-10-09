@@ -22,7 +22,7 @@ class: middle, left
 * What is Rust
 * Rust Philosophy
 * What is Cargo
-* Starting a project
+* Setting up a project
 * Hello world!
 * Comments
 * Variables
@@ -69,11 +69,6 @@ class: middle, left
 Rust is a systems programming language that runs blazingly fast, prevents
 segfaults, and guarantees thread safety.
 
-* Favor explicit over implicit
-* Zero-cost abstractions
-* Only pay for what you use
-* Memory safety
-
 ???
 
 // Define "systems programming"
@@ -84,30 +79,50 @@ segfaults, and guarantees thread safety.
 ---
 class: middle, left
 
-## Setting up a Project
+## Rust Philosophy
 
-There are many ways to set up a project in Rust, but this is the simplest.
+* Favor explicit over implicit
+* Zero-cost abstractions
+* Only pay for what you use
+* Memory safety
+* Small standard library
+* Error handling
 
-1. Create a repository on Github
-2. Clone the repository
-3. `cd` into the repository directory
-4. Type `cargo init .`
+???
 
-This will create several files and folders for you automatically:
-
-- `Cargo.toml`: metadata about your project and it's dependencies
-- `.gitignore`: ignores compiled files built by Rust
-- `src/lib.rs`: where your Rust code goes (change this to `main.rs` if you are not writing a library)
+// This does make it harder to prototype in Rust sometimes
 
 ---
 class: middle, left
 
-## setting up a project
+## What is Cargo?
 
-#### `lib.rs` vs `main.rs`
+* Package manager
+* Build tool
+* Test runner
+* Documentation generator
 
-There are 2 main types of projects you can make in Rust. A library and not
-a library.
+???
+
+// A lot of these things are convenience wrappers around other tools like rustc
+// and rustdoc.
+
+---
+class: middle, left
+
+## Setting up a Project
+
+We're going to be making a *binary* project; the other option is a *library*.
+
+`cargo new` will create a skeleton project setup for you.
+
+1. `cd` to a directory where you like to store code
+2. `cargo new --bin [projectname]`
+3. `cd [projectname]`
+
+If you use version control, now would be a good time to commit.
+
+???
 
 If you are writing a <strong>library</strong>, it means you intend for your
 code to be used in someone else's application as a crate or module.
@@ -118,102 +133,311 @@ to write code that compiles into a binary that someone can run. If you
 want to do this, you need to use a `main.rs`. Inside the `main.rs` you
 should have a `main` function that looks like this:
 
-```rust
-fn main() {
-  /// your app code goes here
-}
-```
 ---
 class: middle, left
 
-## storing values
+## Files created
 
-To get started using Rust you'll probably want to assign values so that
-you can use them. To do this in Rust:
+- `Cargo.toml`: metadata about your project and its dependencies
+- `.gitignore`: ignores compiled files built by Rust
+- `src/main.rs`: where your Rust code goes
+
+---
+class: middle, left
+
+## `src/main.rs`
+
+```rust
+fn main() {
+    println!("Hello, world!");
+}
+```
+
+???
+
+// `fn` starts a function definition
+// `main` is the name of the function
+// `main` fn is special - entry point of your binary
+// curly braces around the body
+// `println!` is a macro (don't worry) that prints to the screen
+// End lines with semicolons (mostly, we'll talk later)
+
+---
+class: middle, left
+
+## Run it!
+
+* `cargo run`
+* Should print "Hello, world!"
+* Now you have more files:
+  * `target` directory: all the built stuff
+  * `Cargo.lock`: locks your dependencies (we don't have any yet)
+* Try printing out something else!
+* Try printing out two things!
+
+---
+class: middle, left
+
+## Comments
+
+* Double slash at the beginning of a line (`//`)
+* Try commenting out one of your lines printing!
+* There are other kinds of comments but this is the most common
+
+---
+class: middle, left
+
+## Variables
 
 ```
 let name = "ashley";
 let age = 30;
+println!("Hi, {}! You are {} years old.", name, age);
 ```
 
-If you want to make a constant, you must specify a type:
+* Try making more variables and printing them all out in one `println!`
 
-```
-const FAVENUM: u32 = 6;
-```
+???
+
+// `let`, variable name, single equals, value, semicolon.
+// Crab pincers in println, then values that should fit in there
+
 ---
 class: middle, left
 
-## types
+## Experiment
 
-There are a lot of types, but just to get you started:
+What happens if you run this:
+
+```
+let apples = 100;
+apples += 50;
+println!("I have {} apples", apples);
+```
+
+???
+
+// Have someone read the error message
+
+---
+class: middle, left
+
+## Mutability
+
+Variables are *immutable* by default in Rust.
+
+```
+let mut apples = 100;
+apples += 50;
+println!("I have {} apples", apples);
+```
+
+???
+
+// Rust has functional influences
+// Changing a value where you didn't expect to is a common source of bugs.
+
+---
+class: middle, left
+
+## Types
+
+Rust is strongly, statically typed. Common fundamental types are:
 
 - `u32`: unsigned 32-bit integer
 - `i32`: signed 32-bit integer
 - `f64`: floating point number
-- `String` and/or `&str`: more on these below
+- `String` and/or `&str`: more on these later
 - `bool`: a boolean
 
 ---
 class: middle, left
 
-## dealing with strings
+## Type inference
 
-String in Rust are a lot more complicated than you might be used to if
-you are coming from another language, in particular, interpreted languages
-like Ruby or JavaScript. Here's some key points:
+* Every value has a type that the compiler has to know about.
+* Most of the time, the compiler can figure it out.
+* Sometimes it can't, and you'll get an error and need to add an annotation.
+* We could have written `let age: i32 = 30;`
+* A place we **must** specify types is function definitions.
 
-#### `&str` and `String`
-- "my string" is not a `String`. it's a `str`. the difference between the a `String` and a
-  `str` is how they are allocated. don't worry about that right now.
-- pretty much always use `str` with an `&`, as `&str`.
-- You can turn a `&str` into a `String` by using `to_string()` or `String::from()`. You want
-  to do this because String has a ton of awesome convenience methods.
+???
 
----
-class: middle, left
-
-
-## concatentation
-
-- add a `&str` to a `String` using `push_str()`
-
-```rust
-let realstring = String::from("hello ");
-let str1 = "world!"
-let message = realstring.push_str(str1);
-```
-
-- add `&str`s using `format!`
-
-```rust
-let str1 = "hello ";
-let str2 = "world!"
-let message = format!("{}{}", str1, str2);
-```
+// Types come after the name
 
 ---
 class: middle, left
 
-## characters
-
-- a `char` is a different type than a `str` or `String`. `char` is always single quotes.
-- to get a `String`'s `char`s you can call `chars()`
-- you might find that instead of `chars()` you really want `as_bytes()` but if you aren't sure
-  don't sweat it rn
-
-Example:
+## Functions
 
 ```rust
-let letters = String::from("ashley").chars();
+fn add_fifty(n: i32) -> i32 {
+    n + 50
+}
 
-for l in letters {
-  /// do something cool with characters
+fn main() {
+    println!("Lots: {}", add_fifty(100));
 }
 ```
 
+???
+
+// Argument/parameter, named with type specified
+// `->` plus return type, if returning a value
+// No semicolon on the last line when returning that value
+// No `return` keyword unless doing an early return
+// Function call always uses parens, even if no arguments
+
 ---
 class: middle, left
+
+## Conditionals: `if`
+
+```rust
+fn main() {
+    let age = 13u32;
+    if n < 13 {
+        println!("You may see G or PG movies");
+    } else if n < 17 {
+        println!("You may see G, PG, or PG-13 movies");
+    } else {
+        println!("You are old.");
+        println!("You may see G, PG, PG-13, or R movies");
+    }
+}
+```
+???
+
+// Shorthand for numeric type annotation
+// Age can't be negative, compiler will make sure we don't have negative ages
+
+---
+class: middle, left
+
+## Conditionals: `match`
+
+```rust
+fn main() {
+    let age = 13u32;
+    match age {
+        0...12 => println!("You may see G or PG movies"),
+        13...16 => println!("You may see G, PG, or PG-13 movies"),
+        _ => {
+            println!("You are old.");
+            println!("You may see G, PG, PG-13, or R movies")
+        },
+    }
+}
+```
+
+???
+
+// Underscore is catch-all
+// Pattern, rocket, code to run
+// Commas at the end of the code to run
+// If the code is more than one line, surround with curly braces
+// Trailing comma on the last one is the style
+// What if we take out the line with the underscore? This is advantage to `match` over `if`/`else if`/`else`
+
+---
+class: middle, left
+
+## Arrays
+
+```rust
+let mut color = [255, 0, 255];
+color[0] = 100;
+println!("The color is {:?}", color);
+```
+
+???
+
+// Arrays are a fixed size known at compile time
+// Square brackets, commas
+// Indexing to a particular location
+// Need debug formatting in println since Rust doesn't know how you want to display arrays to your users
+
+---
+class: middle, left
+
+## Vectors
+
+Most of the time, you probably want a vector rather than array.
+
+```rust
+let mut prices = vec![30, 100, 2];
+prices[0] = 25;
+prices.push(40);
+println!("All the prices are: {:?}", prices);
+```
+
+???
+
+// `vec!` shorthand macro, the rest is like an array
+// Vecs can change in size at runtime
+// So we can call the `push` method
+
+---
+class: middle, left
+
+## API Documentation
+
+https://doc.rust-lang.org/
+or
+`rustup doc`
+
+Click on "Standard Library API Reference"
+or
+`rustup doc --std`
+
+???
+
+// Search for `vec`
+
+
+---
+class: middle, left
+---
+class: middle, left
+---
+class: middle, left
+---
+class: middle, left
+---
+class: middle, left
+---
+class: middle, left
+
+* Looping (ranges)
+* Tuples
+* Structs
+* Methods
+* Enums
+* Result and Option
+* `if let`
+
+* Strings
+* Slices
+* Ownership
+* References
+
+* Crates
+* Iterators
+* Closures
+* Threads
+
+* API docs
+* cargo doc --open
+
+* Things we didn't cover but that are things
+  * Tests
+  * FFI
+  * Traits
+  * Generics
+  * Macros
+  * Composition over inheritance
+  * Lifetimes
+
 
 
 
