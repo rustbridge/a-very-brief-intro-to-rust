@@ -11,7 +11,7 @@
 
 class: middle, center
 
-![ferris](public/img/ferris.png)
+![ferris](public/img/ferris.gif)
 # A Very Brief Intro to Rust
 
 ---
@@ -19,47 +19,11 @@ class: middle, left
 
 ## Overview
 
-* What is Rust
-* Rust Philosophy
-* What is Cargo
-* Setting up a project
-* Hello world!
-* Comments
-* Variables
-* Types
-* Functions
-* Conditionals (if and match)
-
-* Arrays and Vectors
-* Looping (ranges)
-* Tuples
-* Structs
-* Methods
-* Enums
-* Result and Option
-* `if let`
-
-* Strings
-* Slices
-* Ownership
-* References
-
-* Crates
-* Iterators
-* Closures
-* Threads
-
-* API docs
-* cargo doc --open
-
-* Things we didn't cover but that are things
-  * Tests
-  * FFI
-  * Traits
-  * Generics
-  * Macros
-  * Composition over inheritance
-  * Lifetimes
+* Rust, Cargo, Setup
+* Concepts that are mostly the same as other languages
+* Concepts that are different than in other languages
+* Features that make Rust super awesome
+* Concepts we didn't cover but that are things
 
 ---
 class: middle, left
@@ -174,6 +138,24 @@ class: middle, left
   * `Cargo.lock`: locks your dependencies (we don't have any yet)
 * Try printing out something else!
 * Try printing out two things!
+
+---
+class: middle, left
+
+## API Documentation
+
+https://doc.rust-lang.org/
+or
+`rustup doc`
+
+Click on "Standard Library API Reference"
+or
+`rustup doc --std`
+
+---
+class: middle, left
+
+## Concepts that are mostly the same as other languages
 
 ---
 class: middle, left
@@ -316,6 +298,8 @@ class: middle, left
 
 ## Conditionals: `match`
 
+Kinda like a switch. But better.
+
 ```rust
 fn main() {
     let age = 13u32;
@@ -343,6 +327,8 @@ fn main() {
 class: middle, left
 
 ## Arrays
+
+Kinda like arrays in other languages, but worse.
 
 ```rust
 let mut color = [255, 0, 255];
@@ -380,66 +366,89 @@ println!("All the prices are: {:?}", prices);
 ---
 class: middle, left
 
-## API Documentation
+## Looping (and ranges)
 
-https://doc.rust-lang.org/
-or
-`rustup doc`
-
-Click on "Standard Library API Reference"
-or
-`rustup doc --std`
-
-???
-
-// Search for `vec`
-
+```rust
+```
 
 ---
 class: middle, left
----
-class: middle, left
----
-class: middle, left
----
-class: middle, left
----
-class: middle, left
+
+## Enums
+
+Better than in other languages.
+
 ---
 class: middle, left
 
-* Looping (ranges)
-* Tuples
-* Structs
-* Methods
-* Enums
-* Result and Option
-* `if let`
+## Concepts that are different than in other languages
 
-* Strings
-* Slices
-* Ownership
-* References
+---
+class: middle, left
 
-* Crates
-* Iterators
-* Closures
-* Threads
+## Option
 
-* API docs
-* cargo doc --open
+---
+class: middle, left
 
-* Things we didn't cover but that are things
+## Result
+
+* `expect`
+
+---
+class: middle, left
+
+## Strings
+---
+class: middle, left
+
+## Slices
+---
+class: middle, left
+
+## Ownership
+---
+class: middle, left
+
+## References
+
+---
+class: middle, left
+
+## Features that make Rust super awesome
+
+---
+class: middle, left
+
+## Crates
+---
+class: middle, left
+
+## Iterators
+---
+class: middle, left
+
+## Closures
+---
+class: middle, left
+
+## Threads
+
+---
+class: middle, left
+
+## Concepts we didn't cover but that are things
   * Tests
+  * Lifetimes
+  * Tuples
+  * Structs
+  * Methods
+  * `if let`
   * FFI
   * Traits
   * Generics
   * Macros
   * Composition over inheritance
-  * Lifetimes
-
-
-
 
    </textarea>
     <script src="public/remark.js" type="text/javascript">
