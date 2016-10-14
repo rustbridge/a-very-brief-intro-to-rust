@@ -710,10 +710,118 @@ class: middle, left
 
 ## Ownership
 
+* The *owner* of a resource is who is responsible for cleaning it up.
+* When owners go out of scope, Rust automatically calls the cleanup code.
+
+```rust
+fn main() {
+    let v = vec![1, 2, 3];
+    println!("v is valid here! {:?}", v);
+}
+```
+
+???
+
+* Point to where s is valid and where s goes out of scope
+
+---
+class: middle, left
+
+## Transferring Ownership
+
+* When you pass an argument to a function, ownership is transferred to the function.
+* We say that something is *moved*.
+
+```rust
+fn main() {
+    let v = vec![1, 2, 3];
+    print_vec(v);
+    print_vec(v);
+}
+
+fn print_vec(v: Vec<i32>) {
+    println!("v is {:?}", v);
+}
+```
+
+???
+
+* Explain error message
+* Yes this is weird and annoying!
+* Don't worry we'll fix it!
+
 ---
 class: middle, left
 
 ## References
+
+* Let you borrow a resource you don't own
+* A reference is only valid as long as the owner is valid. Rust ensures you aren't using an invalid reference *at compile time*.
+* Slices are a specific type of reference.
+
+```rust
+fn main() {
+    let v = vec![1, 2, 3];
+    print_vec(&v[..]);
+    print_vec(&v[..]);
+}
+
+fn print_vec(v: &[i32]) {
+    println!("v is {:?}", v);
+}
+```
+
+???
+
+- So unless you *want* your function to take ownership of an argument, you *probably* will have most of your functions take references as arguments.
+
+---
+class: middle, left
+
+## Mutable References
+
+* Like variables, references are immutable by default, but you can make them mutable with `mut`.
+* You may have many immutable references in a scope
+* You may only have one mutable reference and no immutable references in a scope
+
+```rust
+fn main() {
+    let mut v = vec![1, 2, 3];
+    change_vec(&mut v[..]);
+    change_vec(&mut v[..]);
+    println!("v is {:?}", v);
+}
+
+fn change_vec(v: &mut [i32]) {
+    v[0] *= 5;
+}
+```
+
+???
+
+* This is how you would make a function that's allowed to change its arguments.
+
+---
+class: middle, left
+
+## What you're not allowed to do
+
+```rust
+fn main() {
+    let mut v = vec![1, 2, 3];
+
+    let f = &v[0];
+    v.clear();
+
+    println!("What would f be? {}", f);
+}
+```
+
+???
+
+* This won't compile-- look at the error.
+* Other languages will let you do this and give you invalid data.
+* Security vulnerabilities!
 
 ---
 class: middle, left
