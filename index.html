@@ -23,7 +23,6 @@ class: middle, left
 * Concepts that are mostly the same as other languages
 * Concepts that are different than in other languages
 * Features that make Rust super awesome
-* Concepts we didn't cover but that are things
 
 ---
 class: middle, left
@@ -539,32 +538,178 @@ class: middle, left
 
 ## Result
 
-* `expect`
+Another enum in the standard library, for when something could succeed or fail:
+
+```rust
+enum Result<T, E> {
+    Ok(T),
+    Err(E),
+}
+```
 
 ---
 class: middle, left
 
-## Strings
+## Using Result
 
-Strings in Rust are a lot more complicated than you might be used to if
-you are coming from another language, in particular, interpreted languages
-like Ruby or JavaScript. Here's some key points:
+```rust
+let numstr = "6";
+let num = numstr.parse::<i32>();
+println!("num = {:?}", num);
 
-#### `&str` and `String`
-- "my string" is not a `String`. It's a `str`. the difference between a `String` and a
-  `str` is how they are allocated. Don't worry about that right now.
-- Pretty much always use `str` with an `&`, as `&str`.
-- You can turn a `&str` into a `String` by using `to_string()` or `String::from()`. You want
-to do this because `String` has a ton of awesome convenience methods.
+let numstr = "florp";
+let num = numstr.parse::<i32>();
+println!("num = {:?}", num);
+```
+
+???
+
+* Turbofish! Because we could parse into many different types.
+
+---
+class: middle, left
+
+## Using Result
+
+```rust
+let numstr = "6";
+let num = numstr.parse::<i32>();
+let num = num.expect("should have a number");
+
+println!("num + 5 = {}", num + 5);
+```
+
+---
+class: middle, left
+
+## Using Result
+
+```rust
+let numstr = "florp";
+let num = numstr.parse::<i32>();
+
+let answer = match num {
+    Ok(n) => n + 5,
+    Err(_) => 0,
+};
+println!("Answer is {}", answer);
+```
+
+???
+
+* Yes, this might feel annoying to be forced to think about failure cases all the time
+* But it will save debugging time later, trust me
+* There are lots of methods on Option and Result to help with common ways of handling them
+
+---
+class: middle, left
+
+## Strings: WARNING
+
+* Strings in Rust feel complicated
+* We're sorry
+
+???
+
+Working with strings in Rust is more complicated than working with strings in other languages.
+
+Strings are actually complicated in all languages, it's just that most hide the complexity from you and make choices for you. Rust makes you be explicit with the choices.
+
+---
+class: middle, left
+
+## Two string types
+
+### `String`
+
+* Allocated
+* Growable
+* Can create with either:
+  * `something.to_string()`
+  * `String::from("string slice")`
+
+### `&str`
+
+* Pronounced "string slice"
+* View into string data stored somewhere else
+* Hardcoded strings are `&str`s
+
+???
+
+* `String` is kinda like `Vec`
+
+---
+class: middle, left
+
+## A common problem
+
+```rust
+fn fizz(num: u32) -> String {
+    if num % 3 == 0 {
+        "Fizz"
+    } else {
+        num.to_string()
+    }
+}
+```
+
+???
+
+* "Fizz" here isn't a String, it's a &str
+* Have to make Fizz a String to fix this
 
 ---
 class: middle, left
 
 ## Slices
+
+* A view into some data
+* Points to the start of the view
+* Knows how long the view is
+
+---
+class: middle, left
+
+## Slice syntax
+
+* Vector type: `Vec<i32>`
+* Corresponding slice type: `&[i32]`
+
+```rust
+let v = vec![1, 2, 3, 4, 5];
+let piece = &v[3..];
+println!("piece of v = {:?}", piece);
+```
+
+???
+
+* For any type of thing you put in a vector
+* Range syntax
+
+---
+class: middle, left
+
+## String Slices
+
+```rust
+let s = String::from("Call me Ishmael blah blah...");
+let part = &s[0..4];
+
+println!("part is '{}'", part);
+```
+
+???
+
+* Vec<T> : &[T] :: String : &str
+* With string slices, indices are bytes, not chars, long story
+
+* All kinds of slices are useful because they let you share data without copying all of it around
+
 ---
 class: middle, left
 
 ## Ownership
+
 ---
 class: middle, left
 
@@ -579,23 +724,22 @@ class: middle, left
 class: middle, left
 
 ## Crates
+
 ---
 class: middle, left
 
 ## Iterators
+
 ---
 class: middle, left
 
 ## Closures
----
-class: middle, left
-
-## Threads
 
 ---
 class: middle, left
 
 ## Concepts we didn't cover but that are things
+
   * Tests
   * Lifetimes
   * Tuples
@@ -606,6 +750,7 @@ class: middle, left
   * Traits
   * Generics
   * Macros
+  * Threads
   * Composition over inheritance
 
    </textarea>
