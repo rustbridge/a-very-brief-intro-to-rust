@@ -35,10 +35,10 @@ segfaults, and guarantees thread safety.
 
 ???
 
-// Define "systems programming"
-// Fast = as fast as C
-// segfaults = crashing because of mismanaged memory
-// Memory safety also covers buffer over/underflows
+* Define "systems programming"
+* Fast = as fast as C
+* segfaults = crashing because of mismanaged memory
+* Memory safety also covers buffer over/underflows
 
 ---
 class: middle, left
@@ -54,7 +54,7 @@ class: middle, left
 
 ???
 
-// This does make it harder to prototype in Rust sometimes
+* This does make it harder to prototype in Rust sometimes
 
 ---
 class: middle, left
@@ -68,8 +68,8 @@ class: middle, left
 
 ???
 
-// A lot of these things are convenience wrappers around other tools like rustc
-// and rustdoc.
+* A lot of these things are convenience wrappers around other tools like rustc
+* and rustdoc.
 
 ---
 class: middle, left
@@ -90,12 +90,11 @@ If you use version control, now would be a good time to commit.
 
 If you are writing a <strong>library</strong>, it means you intend for your
 code to be used in someone else's application as a crate or module.
-If you want to do this, you should use a `lib.rs`.
 
-If you are writing a <strong>not library</strong>, it means that you'd like
+If you are writing a <strong>binary</strong>, it means that you'd like
 to write code that compiles into a binary that someone can run. If you
 want to do this, you need to use a `main.rs`. Inside the `main.rs` you
-should have a `main` function that looks like this:
+should have a `main` function.
 
 ---
 class: middle, left
@@ -119,12 +118,12 @@ fn main() {
 
 ???
 
-// `fn` starts a function definition
-// `main` is the name of the function
-// `main` fn is special - entry point of your binary
-// curly braces around the body
-// `println!` is a macro (don't worry) that prints to the screen
-// End lines with semicolons (mostly, we'll talk later)
+* `fn` starts a function definition
+* `main` is the name of the function
+* `main` fn is special - entry point of your binary
+* curly braces around the body
+* `println!` is a macro (don't worry) that prints to the screen
+* End lines with semicolons (mostly, we'll talk later)
 
 ---
 class: middle, left
@@ -181,8 +180,8 @@ println!("Hi, {}! You are {} years old.", name, age);
 
 ???
 
-// `let`, variable name, single equals, value, semicolon.
-// Crab pincers in println, then values that should fit in there
+* `let`, variable name, single equals, value, semicolon.
+* Crab pincers in println, then values that should fit in there
 
 ---
 class: middle, left
@@ -199,7 +198,7 @@ println!("I have {} apples", apples);
 
 ???
 
-// Have someone read the error message
+* Have someone read the error message
 
 ---
 class: middle, left
@@ -216,8 +215,8 @@ println!("I have {} apples", apples);
 
 ???
 
-// Rust has functional influences
-// Changing a value where you didn't expect to is a common source of bugs.
+* Rust has functional influences
+* Changing a value where you didn't expect to is a common source of bugs.
 
 ---
 class: middle, left
@@ -245,7 +244,7 @@ class: middle, left
 
 ???
 
-// Types come after the name
+* Types come after the name
 
 ---
 class: middle, left
@@ -264,11 +263,11 @@ fn main() {
 
 ???
 
-// Argument/parameter, named with type specified
-// `->` plus return type, if returning a value
-// No semicolon on the last line when returning that value
-// No `return` keyword unless doing an early return
-// Function call always uses parens, even if no arguments
+* Argument/parameter, named with type specified
+* `->` plus return type, if returning a value
+* No semicolon on the last line when returning that value
+* No `return` keyword unless doing an early return
+* Function call always uses parens, even if no arguments
 
 ---
 class: middle, left
@@ -290,8 +289,8 @@ fn main() {
 ```
 ???
 
-// Shorthand for numeric type annotation
-// Age can't be negative, compiler will make sure we don't have negative ages
+* Shorthand for numeric type annotation
+* Age can't be negative, compiler will make sure we don't have negative ages
 
 ---
 class: middle, left
@@ -316,12 +315,12 @@ fn main() {
 
 ???
 
-// Underscore is catch-all
-// Pattern, rocket, code to run
-// Commas at the end of the code to run
-// If the code is more than one line, surround with curly braces
-// Trailing comma on the last one is the style
-// What if we take out the line with the underscore? This is advantage to `match` over `if`/`else if`/`else`
+* Underscore is catch-all
+* Pattern, rocket, code to run
+* Commas at the end of the code to run
+* If the code is more than one line, surround with curly braces
+* Trailing comma on the last one is the style
+* What if we take out the line with the underscore? This is advantage to `match` over `if`/`else if`/`else`
 
 ---
 class: middle, left
@@ -338,10 +337,10 @@ println!("The color is {:?}", color);
 
 ???
 
-// Arrays are a fixed size known at compile time
-// Square brackets, commas
-// Indexing to a particular location
-// Need debug formatting in println since Rust doesn't know how you want to display arrays to your users
+* Arrays are a fixed size known at compile time
+* Square brackets, commas
+* Indexing to a particular location
+* Need debug formatting in println since Rust doesn't know how you want to display arrays to your users
 
 ---
 class: middle, left
@@ -359,24 +358,92 @@ println!("All the prices are: {:?}", prices);
 
 ???
 
-// `vec!` shorthand macro, the rest is like an array
-// Vecs can change in size at runtime
-// So we can call the `push` method
+* `vec!` shorthand macro, the rest is like an array
+* Vecs can change in size at runtime
+* So we can call the `push` method
 
 ---
 class: middle, left
 
 ## Looping (and ranges)
 
+* `for` loops are most common:
+
 ```rust
+for i in 0..10 {
+    println!("Number {}", i);
+}
 ```
+
+```rust
+let names = vec!["Carol", "Jake", "Marylou", "Bruce"];
+for name in names.iter() {
+    println!("Hi {}!", name);
+}
+```
+
+* `loop` creates an infinite loop
+* `while` loops run while their condition is true
+* `break` exits the current loop
 
 ---
 class: middle, left
 
 ## Enums
 
-Better than in other languages.
+* Nice to use with `match`
+
+```rust
+enum TrafficLight {
+    Red,
+    Yellow,
+    Green,
+}
+let light = TrafficLight::Green;
+
+match light {
+    TrafficLight::Red => println!("STOP!"),
+    TrafficLight::Yellow => println!("Slow down!"),
+    TrafficLight::Green => println!("Go go go!"),
+}
+```
+
+???
+
+* Double colon is namespacing
+* Show warnings!
+
+---
+class: middle, left
+
+## Enums
+
+* Better than in other languages: can hold values!
+
+```rust
+enum GameType {
+    SinglePlayer,
+    MultiPlayer(u32),
+}
+
+let game = GameType::MultiPlayer(4);
+
+match game {
+    GameType::SinglePlayer => println!("How about solitaire?"),
+    GameType::MultiPlayer(2) => println!("How about checkers?"),
+    GameType::MultiPlayer(4) => println!("How about bridge?"),
+    GameType::MultiPlayer(num) => {
+        println!("How about {}-player tag?", num)
+    },
+}
+```
+
+???
+
+* Values are specific to each variant
+* Have to define the type of the values in the variant
+* Destructure = patterns that bind to parts
+* Destructure to get values out
 
 ---
 class: middle, left
@@ -387,6 +454,85 @@ class: middle, left
 class: middle, left
 
 ## Option
+
+**Rust doesn't have `nil`/`null`** so to express that a value might be something or nothing, Rust has the `Option` type.
+
+Option is an enum provided by the standard library:
+
+```rust
+enum Option<T> {
+    Some(T),
+    None
+}
+```
+
+???
+
+* T is a generic type parameter, means Some can hold any type
+* No more undefined method on nil!!!!
+
+---
+class: middle, left
+
+## Using Option
+
+```rust
+let mut instructors = vec!["Carol"];
+
+let a = instructors.pop();
+println!("a is {:?}", a);
+
+let b = instructors.pop();
+println!("b is {:?}", b);
+```
+
+???
+
+* When we pop off the last element of a vec, there might not be one!
+
+---
+class: middle, left
+
+## Using Option
+
+```rust
+let a = Some("Carol");
+
+let name = a.expect("No name present");
+println!("Name is {} bytes long", name.len());
+```
+
+???
+
+* Can't call `len` on an `Option` directly since it could be `None`!
+* expect crashes if it gets a None, good for prototyping or when you're REALLY REALLY SURE you have Some
+    * Set an error message in expect that is useful to you for debugging
+    * Try changing `a` to this and see what happens
+        `let a: Option<&str> = None;`
+    * Mention but gloss over type annotation
+
+---
+class: middle, left
+
+## Using Option
+
+```rust
+let b: Option<&str> = None;
+
+match b {
+    Some(name) => {
+        println!("Other name is {} bytes long", name.len())
+    },
+    None => {
+        println!("No name!")
+    }
+}
+```
+
+???
+
+* Match is useful for handling both cases
+* Option is just another enum!
 
 ---
 class: middle, left
@@ -399,6 +545,18 @@ class: middle, left
 class: middle, left
 
 ## Strings
+
+Strings in Rust are a lot more complicated than you might be used to if
+you are coming from another language, in particular, interpreted languages
+like Ruby or JavaScript. Here's some key points:
+
+#### `&str` and `String`
+- "my string" is not a `String`. It's a `str`. the difference between a `String` and a
+  `str` is how they are allocated. Don't worry about that right now.
+- Pretty much always use `str` with an `&`, as `&str`.
+- You can turn a `&str` into a `String` by using `to_string()` or `String::from()`. You want
+to do this because `String` has a ton of awesome convenience methods.
+
 ---
 class: middle, left
 
