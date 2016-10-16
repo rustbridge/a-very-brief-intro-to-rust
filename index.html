@@ -538,7 +538,9 @@ class: middle, left
 
 ## Result
 
-Another enum in the standard library, for when something could succeed or fail:
+* Another enum in the standard library
+* For when something could succeed or fail
+* Rust doesn't have exceptions; using `Result` is how you handle errors.
 
 ```rust
 enum Result<T, E> {
@@ -546,6 +548,8 @@ enum Result<T, E> {
     Err(E),
 }
 ```
+
+???
 
 ---
 class: middle, left
@@ -600,6 +604,27 @@ println!("Answer is {}", answer);
 * Yes, this might feel annoying to be forced to think about failure cases all the time
 * But it will save debugging time later, trust me
 * There are lots of methods on Option and Result to help with common ways of handling them
+
+---
+class: middle, left
+
+## `try!` macro to propagate errors up
+
+* Can only be used in methods/functions that return `Result`!!!!
+
+```rust
+fn add_five_to_string(s: String) ->
+    Result<i32, std::num::ParseIntError> {
+
+    let ans = try!(s.parse::<i32>()) + 5;
+    Ok(ans)
+}
+```
+
+???
+
+* Typical to have lots of functions that return `Result` then have a `match` at the outer layer
+* Unstable `?` operator coming soon to make this even nicer and chainable
 
 ---
 class: middle, left
@@ -832,6 +857,15 @@ class: middle, left
 class: middle, left
 
 ## Crates
+
+![cratesio](public/img/cratesio.png)
+
+???
+
+* Like rubygems.org
+* Easy to add crates to your project
+* Rust's stdlib is small and stable
+* Crates can change more rapidly and more radically independently of Rust
 
 ---
 class: middle, left
