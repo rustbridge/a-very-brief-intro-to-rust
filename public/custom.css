@@ -46,3 +46,13 @@ h5 {
   top: -112px;
   left: 0;
 }
+
+.pull-left {
+  float: left;
+  width: 47%;
+}
+
+.pull-right {
+  float: right;
+  width: 47%;
+}
