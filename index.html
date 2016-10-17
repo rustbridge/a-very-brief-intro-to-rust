@@ -15,6 +15,17 @@ class: middle, center
 # A Very Brief Intro to Rust
 
 ---
+class: middle, center
+
+![experiment](public/img/experiment.jpg)
+
+???
+
+* This curriculum is an experiment.
+* This is only the 2nd Rustbridge IN THE WORLD
+* Please take notes about what you liked, didn't like, wished we spent more or less time on, etc -- there will be a survey!
+
+---
 class: middle, left
 
 ## Overview
@@ -80,8 +91,8 @@ We're going to be making a *binary* project; the other option is a *library*.
 `cargo new` will create a skeleton project setup for you.
 
 1. `cd` to a directory where you like to store code
-2. `cargo new --bin [projectname]`
-3. `cd [projectname]`
+2. `cargo new --bin rustbridge`
+3. `cd rustbridge`
 
 If you use version control, now would be a good time to commit.
 
@@ -103,6 +114,25 @@ class: middle, left
 - `Cargo.toml`: metadata about your project and its dependencies
 - `.gitignore`: ignores compiled files built by Rust
 - `src/main.rs`: where your Rust code goes
+
+---
+class: middle, left
+
+## `Cargo.toml`
+
+```toml
+[package]
+name = "rustbridge"
+version = "0.1.0"
+authors = ["Carol (Nichols || Goulding) <carol.nichols@gmail.com>"]
+
+[dependencies]
+```
+
+???
+
+* Cargo got your name from your env, probably from git.
+* If it's not there, or if it's wrong, go ahead and fix it.
 
 ---
 class: middle, left
