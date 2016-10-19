@@ -51,6 +51,16 @@ class: middle, left
 ---
 class: middle, left
 
+# To crates.io!
+
+???
+
+* Show searching for http, which is horrible we're sorry, then sort by downloads
+* Show the line to copy for the Cargo.toml
+
+---
+class: middle, left
+
 ## Adding the `hyper` crate
 
 * Edit `Cargo.toml` file
@@ -69,19 +79,23 @@ hyper = "0.9.10"
 ???
 
 * A crate is a library that someone else made and shared, like rubygems
-* How did we know to use hyper?
 * Let's do `cargo run`!
-* What else changed?
+* What else changed? Cargo.lock
 
 ---
 class: middle, left
 
-## To the docs!
+## How do we use `hyper`?
 
-* `cargo doc --open`
+* To the docs!
+* `cargo doc --open` will include hyper docs now!
+* Let's go look!
+
+???
+
 * Click on "hyper" in the sidebar
-* Click on "Client"
-* `GET` example!
+* Click on "Client" since we want to use an HTTP client
+* Check out the `GET` example! Go through each part
 
 ---
 class: middle, left
@@ -89,7 +103,8 @@ class: middle, left
 ## Using `hyper`
 
 * Adding it to `Cargo.toml` just told cargo we wanted to have it available
-* In `src/main.rs`, we can use the example from the docs with a few additions:
+* Have to bring the crate in with `extern crate`
+* Going to bring `hyper::Client` into our scope for convenience
 
 ```rust
 extern crate hyper;
@@ -98,7 +113,10 @@ use hyper::Client;
 fn main() {
     let client = Client::new();
 
-    let res = client.get("http://example.domain").send().expect("Request failed");
+    let res = client.get("http://example.domain")
+                    .send()
+                    .expect("Request failed");
+
     assert_eq!(res.status, hyper::Ok);
     println!("{:#?}", response);
 }
@@ -106,8 +124,6 @@ fn main() {
 
 ???
 
-* `extern` brings the crate in
-* `use` brings the name in scope; we could say `hyper::Client` everywhere instead
 * Creating a new hyper::Client instance
 * Variable res
 * Result of calling `get` method on client, passing the address as an arg
@@ -129,7 +145,10 @@ class: middle, left
 ## How do we get the body of the `Response`?
 
 * Look at the docs!
-* "and the response body via the `Read` trait."
+
+???
+
+* Note the "and the response body via the `Read` trait."
 
 ---
 class: middle, left
@@ -139,20 +158,9 @@ class: middle, left
 * Guarantees that a type implements a set of methods
   * Compiler-checked duck-typing
   * `implements` interfaces in Java
-
 * Can define default methods in terms of required methods
   * Sort of like Ruby enumerable/each
-
 * Display and Debug are traits you've been using!
-
----
-class: middle, left
-
-## The `Read` trait
-
-* `impl Read for Response`
-* We want to use the trait method `read_to_string`
-* The trait needs to be in scope: `use std::io::Read;`
 
 ---
 class: middle, left
@@ -177,10 +185,22 @@ fn main() {
 
 ???
 
+* The trait needs to be in scope: `use std::io::Read;`
 * `response` needs to be `mut` now
 * Need a mutable string to read into
 * Pass a mutable reference to that string to `read_to_string`
 * Then we get the HTML of github.com!
+
+---
+class: middle, left
+
+# WARNING!!
+
+* Some webservers don't like it if you do a lot of requests quickly!
+
+???
+
+* All of vivisimo's office got blocked by google
 
 ---
 class: middle, left
@@ -199,11 +219,76 @@ class: middle, left
 * Add to your `Cargo.toml`: `select = "0.3.0"`
 * Rebuild the docs: `cargo doc --open`
 
+???
+
+* Click select in the sidebar
+* Click document, Document
+* Scroll to `From &str`
+
 ---
 class: middle, left
 
+## Let's make a `Document` from our `String`!
 
+* Have to make our `String` into a string slice first (sorry sorry)
 
+```
+let document = Document::from(&body[..]);
+println!("doc = {:#?}", document);
+```
+
+---
+class: middle, left
+
+## We have a Document, now what???
+
+---
+class: middle, left
+
+## Let's `find` something!
+
+```
+use select::predicate::{Attr, Class};
+
+...
+
+let wrapper = document.find(Attr("id", "item-page-wrapper"));
+let rows = wrapper.find(Class("a-fixed-right-grid"));
+for row in rows.iter() {
+    println!(" * Row {}", row.text());
+}
+```
+
+---
+class: middle, left
+
+## Let's extract just the title and the price.
+
+```
+for row in rows.iter() {
+    let title_node = row.find(Name("h5")).first();
+    let price_node = row.find(Class("a-color-price")).first();
+    match (title_node, price_node) {
+        (Some(title), Some(price)) => {
+            println!("* Book \"{}\", with price {}",
+                title.text().trim(),
+                price.text().trim()
+            );
+        },
+        (_, _) => (),
+    }
+}
+```
+
+---
+class: middle, left
+
+## Bonuses
+
+* Parse and sum the prices!
+* What else can you extract?
+* What other pages might you want to scrape data from?
+* Can you extract data from multiple sites/pages in parallel with threads and aggregate the data?
 
    </textarea>
     <script src="remark.js" type="text/javascript">

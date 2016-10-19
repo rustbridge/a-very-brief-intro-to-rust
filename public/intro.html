@@ -17,12 +17,18 @@ class: middle, center
 ---
 class: middle, center
 
+???
+
+* Welcome to the 2nd Rustbridge IN THE WORLD
+
+---
+class: middle, center
+
 ![experiment](img/experiment.jpg)
 
 ???
 
-* This curriculum is an experiment.
-* This is only the 2nd Rustbridge IN THE WORLD
+* This curriculum is an experiment. It's disorganized and untested.
 * Please take notes about what you liked, didn't like, wished we spent more or less time on, etc -- there will be a survey!
 
 ---
@@ -382,6 +388,43 @@ println!("The color is {:?}", color);
 ---
 class: middle, left
 
+## Quick but Useful Tangent #1: `println!` formatting
+
+* `{}` is called `Display` formatting; only on primitive types by default
+* `{:?}` is called `Debug` formatting; more types have this by default
+* Display is for end users, Debug is for... debugging
+* Rust doesn't want to make assumptions
+* My favorite: `{:#?}` = pretty debug
+* [`fmt` docs](https://doc.rust-lang.org/stable/std/fmt/index.html)
+
+---
+class: middle, left
+
+## Quick but Useful Tangent #2: `panic!`
+
+* Panic stops your program with a message.
+
+```
+fn main() {
+    panic!("aaaaa!");
+}
+```
+
+What happens in the last example if we try to access an element out of bounds of the array?
+
+```rust
+let color = [255, 0, 255];
+let index = 9;
+println!("The 10th element is {:?}", color[index]);
+```
+
+???
+
+* It's a `panic!` behind the scenes!
+
+---
+class: middle, left
+
 ## Vectors
 
 Most of the time, you probably want a vector rather than array.
@@ -422,6 +465,16 @@ for name in names.iter() {
 * `loop` creates an infinite loop
 * `while` loops run while their condition is true
 * `break` exits the current loop
+
+---
+class: middle, left
+
+## Iterators
+
+---
+class: middle, left
+
+## Closures
 
 ---
 class: middle, left
@@ -542,7 +595,7 @@ println!("Name is {} bytes long", name.len());
 ???
 
 * Can't call `len` on an `Option` directly since it could be `None`!
-* expect crashes if it gets a None, good for prototyping or when you're REALLY REALLY SURE you have Some
+* expect panics if it gets a None, good for prototyping or when you're REALLY REALLY SURE you have Some
     * Set an error message in expect that is useful to you for debugging
     * Try changing `a` to this and see what happens
         `let a: Option<&str> = None;`
@@ -889,11 +942,6 @@ fn main() {
 ---
 class: middle, left
 
-## Features that make Rust super awesome
-
----
-class: middle, left
-
 ## Crates
 
 ![cratesio](img/cratesio.png)
@@ -904,16 +952,6 @@ class: middle, left
 * Easy to add crates to your project
 * Rust's stdlib is small and stable
 * Crates can change more rapidly and more radically independently of Rust
-
----
-class: middle, left
-
-## Iterators
-
----
-class: middle, left
-
-## Closures
 
 ---
 class: middle, left
