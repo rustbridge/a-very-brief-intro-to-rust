@@ -1,17 +1,113 @@
+<DOCTYPE html>
+<html>
+  <head>
+    <title>a very brief intro to rust</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="public/skeleton.css" type="text/css" rel="stylesheet">
+    <link href="public/custom.css" type="text/css" rel="stylesheet">
+  </head>
+  <body>
+    <textarea id="source">
+class: middle,left
+
+## Installfest!
+
+* Goal: to make sure your computer is ready to go for tomorrow.
+* You will install Rust and run a few more commands that will test what we need to have working.
+* We will explain what all these commands do tomorrow!
+* If at any point you get error messages or unexpected output, call someone over for help!
+
 ---
 class: middle, left
 
 ## Install Rust
 
-The best way to install Rust is with [rustup](https://www.rustup.rs/). rustup is a Rust
-version manager. To install it type:
+The best way to install Rust is with [rustup](https://www.rustup.rs/). rustup
+is a Rust version manager. To install it type:
 
 ```
 curl https://sh.rustup.rs -sSf | sh
 ```
 
-To keep your rust up-to-date with the latest stable version of rust,
-type:
+and follow any other instructions.
+
+---
+class: middle, left
+
+## Check your installation
+
+You should be able to run these two commands and get the same output:
+
+```
+rustc --version
+rustc 1.12.0 (3191fbae9 2016-09-23)
+```
+
+and
+
+```
+cargo --version
+cargo 0.13.0-nightly (109cb7c 2016-08-19)
+```
+
+---
+class: middle, left
+
+## Check cargo
+
+Go into a directory where you keep code and run:
+
+```
+cargo new --bin installtest
+cd installtest
+cargo run
+```
+
+You should see output that looks like this:
+
+```
+$ cargo run
+   Compiling installtest v0.1.0 (file:///projects/installtest)
+    Finished debug [unoptimized + debuginfo] target(s) in 0.46 secs
+     Running target/debug/installtest
+Hello, world!
+```
+
+---
+class: middle, left
+
+## Check installing crates
+
+In your `installtest` directory, edit `Cargo.toml` and add this line to the end:
+
+```
+hyper = "0.9.10"
+```
+
+Run `cargo run` again, and you should see output that looks like this:
+
+```no-highlight
+$ cargo run
+    Updating registry https://github.com/rust-lang/crates.io-index
+ Downloading gcc v0.3.37
+ Downloading [... a bunch more things ...]
+   Compiling typeable v0.1.2
+   Compiling [... a bunch more things ...]
+   Compiling installtest v0.1.0 (file:///projects/installtest)
+    Finished debug [unoptimized + debuginfo] target(s) in 32.0 secs
+     Running target/debug/installtest
+   Hello, world!
+```
+
+---
+class: middle, left
+
+## More useful `rustup` commands
+
+Rustup makes it easy to have different versions of Rust installed and keep them
+up to date. Rust has 3 release "channels": stable, beta, and nightly. New stable and beta versions come out every six weeks.
+
+To update all channels you have installed, use:
 
 ```
 rustup update
@@ -23,23 +119,18 @@ To show what versions you have installed, type:
 rustup toolchain list
 ```
 
-To switch which toolchain you're currently using, type:
+To switch which toolchain you're currently using, for example to switch to "nightly", type:
 
 ```
 rustup default nightly
 ```
 
-To check which version of Rust you have type:
 
-```
-rustc --version
-```
-
-- A new version comes out every 6 weeks
-- Stability without stagnation
-- your stuff won't break
-- channels
-- cool new stuff is still being added!
-- experimental stuff starts nightly only
-
-Rustup makes it easy to have different versions and stay up to date.
+   </textarea>
+    <script src="public/remark.js" type="text/javascript">
+    </script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
