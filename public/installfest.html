@@ -102,6 +102,39 @@ $ cargo run
 ---
 class: middle, left
 
+## Common issue: openssl on osx
+
+Symptom: After adding `hyper` and doing `cargo run`, you see:
+
+```
+failed to run custom build command for openssl-sys-extras v0.7.4
+Process didn't exit successfully:
+`/xxx/rust/hello/target/debug/build/openssl-sys-extras-413...
+(exit code: 101)
+[bunch of garbage]
+```
+
+---
+class: middle, left
+
+## Common issue: openssl on osx
+
+Solution:
+
+* Assuming you have homebrew, run `brew install openssl`
+* Add to `~/.bash_profile`:
+
+```
+export OPENSSL_INCLUDE_DIR=$(brew --prefix openssl)/include
+export DEP_OPENSSL_INCLUDE=${OPENSSL_INCLUDE_DIR}
+```
+
+* Run `source ~/.bash_profile`
+* You won't have to do any of this again for new terminal sessions.
+
+---
+class: middle, left
+
 ## More useful `rustup` commands
 
 Rustup makes it easy to have different versions of Rust installed and keep them
