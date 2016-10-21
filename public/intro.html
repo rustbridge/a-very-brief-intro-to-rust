@@ -1,7 +1,7 @@
 <DOCTYPE html>
 <html>
   <head>
-    <title>a very brief intro to rust</title>
+    <title>A Very Brief Intro to Rust</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="skeleton.css" type="text/css" rel="stylesheet">
     <link href="custom.css" type="text/css" rel="stylesheet">
@@ -13,6 +13,10 @@ class: middle, center
 
 ![ferris](img/ferris.gif)
 # A Very Brief Intro to Rust
+
+???
+
+* This is Ferris, our unofficial mascot!
 
 ---
 class: middle, center
@@ -242,6 +246,7 @@ println!("I have {} apples", apples);
 ???
 
 * Have someone read the error message
+* Whenever anyone gets an error message, we'll read it out loud and talk about it so everyone can learn!
 
 ---
 class: middle, left
@@ -467,21 +472,30 @@ for name in names.iter() {
 * `while` loops run while their condition is true
 * `break` exits the current loop
 
+???
+
+* `for` loop means you never go past the end of the array
+
 ---
 class: middle, left
 
 ## Iterators
 
 ```
-let
+for i in (0..10).filter(|x| x % 2 == 0) {
+    println!("i = {}", i);
+}
+
+for i in (0..10).map(|x| x * x ) {
+    println!("i = {}", i);
+}
+
+let sum = (0..10).fold(0, |acc, x| acc + x);
+println!("sum = {}", sum);
 ```
 
-* See the [Iterator docs]()
-
----
-class: middle, left
-
-## Closures
+* See the [Iterator docs](https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html) for lots more fun stuff.
+* The `|x| x % 2 == 0` in the examples is a closure, they can be used in other situations too.
 
 ---
 class: middle, left
@@ -927,7 +941,7 @@ fn change_vec(v: &mut [i32]) {
 ---
 class: middle, left
 
-## What you're not allowed to do
+## Not allowed to have mutable and immutable references in the same scope.
 
 ```rust
 fn main() {
@@ -943,6 +957,8 @@ fn main() {
 ???
 
 * This won't compile-- look at the error.
+* Where is the immutable reference?
+* Where is the mutable reference?
 * Other languages will let you do this and give you invalid data.
 * Security vulnerabilities!
 
@@ -972,7 +988,7 @@ class: middle, left
 ---
 class: middle, left
 
-## Crates
+## Just One More Thing: Crates
 
 ![cratesio](img/cratesio.png)
 
@@ -982,6 +998,7 @@ class: middle, left
 * Easy to add crates to your project
 * Rust's stdlib is small and stable
 * Crates can change more rapidly and more radically independently of Rust
+* We're going to be using some crates for our project!
 
    </textarea>
     <script src="remark.js" type="text/javascript">

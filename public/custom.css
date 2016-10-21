@@ -13,12 +13,8 @@ img {
 
 a, a:visited, a:active, a:hover {
   color: #400AA7;
-  text-decoration: none;
 }
 
-a:hover {
-  text-decoration: underline;
-}
 
 .highlight {
   color: #400AA7;
