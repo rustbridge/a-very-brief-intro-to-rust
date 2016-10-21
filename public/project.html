@@ -303,6 +303,8 @@ class: middle, left
 ---
 class: middle, left
 
+## One way: using `match`
+
 ```rust
 for row in rows.iter() {
     let title_node = row.find(Name("h5")).first();
@@ -315,6 +317,24 @@ for row in rows.iter() {
             );
         },
         (_, _) => (),
+    }
+}
+```
+
+---
+class: middle, left
+
+## Another way: using `if let`
+
+```rust
+for row in rows.iter() {
+    let title_node = row.find(Name("h5")).first();
+    let price_node = row.find(Class("a-color-price")).first();
+    if let (Some(title), Some(price)) = (title_node, price_node) {
+        println!("* Book \"{}\", with price {}",
+            title.text().trim(),
+            price.text().trim()
+        );
     }
 }
 ```
