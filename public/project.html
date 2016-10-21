@@ -105,27 +105,34 @@ class: middle, left
 * Adding it to `Cargo.toml` just told cargo we wanted to have it available
 * Have to bring the crate in with `extern crate`
 * Going to bring `hyper::Client` into our scope for convenience
+* At the top add:
 
 ```rust
 extern crate hyper;
 use hyper::Client;
+```
 
+---
+class: middle, left
+
+## Using `hyper`'s GET example
+
+```rust
 fn main() {
     let client = Client::new();
 
     let res = client.get("http://example.domain")
                     .send()
-                    .expect("Request failed");
+                    .expect("Request failed"); // <---- different
 
     assert_eq!(res.status, hyper::Ok);
-    println!("{:#?}", response);
+    println!("{:#?}", response); // <---- different
 }
 ```
 
 ???
 
 * Creating a new hyper::Client instance
-* Variable res
 * Result of calling `get` method on client, passing the address as an arg
 * Show clicking on `Client` to get docs for that struct
 * `get` returns a request builder
@@ -133,18 +140,24 @@ fn main() {
 * Returns a `Result<Response>`
 * Examples tend to use `unwrap` because it's short, but we're going to change it to `expect`
 * This example does a test, basically-- assert_eq! will panic if it fails
-* Let's run it with the clearly example address and see what happens!
-* Let's run it with an address that will respond with a 404!
-* Bonus, if you're bored: take the URL as a command line argument!
 * Note that `hyper::Ok` is different than standard library `Ok`
 * Talk about pretty debug output
 
 ---
 class: middle, left
 
+## Experiments!
+
+* Let's run it with the clearly example address and see what happens!
+* Let's run it with an address that will respond with a 404!
+* Bonus challenge: take the URL as a command line argument!
+
+---
+class: middle, left
+
 ## How do we get the body of the `Response`?
 
-* Look at the docs!
+* Look at the docs for the `hyper::Response` struct!
 
 ???
 
@@ -200,6 +213,7 @@ class: middle, left
 
 ???
 
+* Feel free to experiment, but don't run a script that makes thousands of requests per second
 * All of vivisimo's office got blocked by google
 
 ---
