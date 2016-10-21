@@ -37,9 +37,9 @@ class: middle, left
 ## Overview
 
 * Rust, Cargo, Setup
-* Concepts that are mostly the same as other languages
-* Concepts that are different than in other languages
-* Features that make Rust super awesome
+* Syntax + Concepts mostly the same as other languages
+* Syntax + Concepts particular to Rust
+* Further learning
 
 ---
 class: middle, left
@@ -51,7 +51,7 @@ segfaults, and guarantees thread safety.
 
 ???
 
-* Define "systems programming"
+* Ask class to define "systems programming", what do they think of when they hear it
 * Fast = as fast as C
 * segfaults = crashing because of mismanaged memory
 * Memory safety also covers buffer over/underflows
@@ -93,7 +93,7 @@ class: middle, left
 ???
 
 * A lot of these things are convenience wrappers around other tools like rustc
-* and rustdoc.
+and rustdoc.
 
 ---
 class: middle, left
@@ -197,7 +197,7 @@ or
 ---
 class: middle, left
 
-## Concepts that are mostly the same as other languages
+## Syntax + Concepts mostly the same as other languages
 
 ---
 class: middle, left
@@ -213,7 +213,7 @@ class: middle, left
 
 ## Variables
 
-```
+```rust
 let name = "ashley";
 let age = 30;
 println!("Hi, {}! You are {} years old.", name, age);
@@ -233,7 +233,7 @@ class: middle, left
 
 What happens if you run this:
 
-```
+```rust
 let apples = 100;
 apples += 50;
 println!("I have {} apples", apples);
@@ -250,7 +250,7 @@ class: middle, left
 
 Variables are *immutable* by default in Rust.
 
-```
+```rust
 let mut apples = 100;
 apples += 50;
 println!("I have {} apples", apples);
@@ -404,7 +404,7 @@ class: middle, left
 
 * Panic stops your program with a message.
 
-```
+```rust
 fn main() {
     panic!("aaaaa!");
 }
@@ -421,6 +421,7 @@ println!("The 10th element is {:?}", color[index]);
 ???
 
 * It's a `panic!` behind the scenes!
+* This has to do with safety-- don't continue with bad data!
 
 ---
 class: middle, left
@@ -470,6 +471,12 @@ for name in names.iter() {
 class: middle, left
 
 ## Iterators
+
+```
+let
+```
+
+* See the [Iterator docs]()
 
 ---
 class: middle, left
@@ -538,7 +545,7 @@ match game {
 ---
 class: middle, left
 
-## Concepts that are different than in other languages
+## Syntax + Concepts particular to Rust
 
 ---
 class: middle, left
@@ -942,21 +949,8 @@ fn main() {
 ---
 class: middle, left
 
-## Crates
-
-![cratesio](img/cratesio.png)
-
-???
-
-* Like rubygems.org
-* Easy to add crates to your project
-* Rust's stdlib is small and stable
-* Crates can change more rapidly and more radically independently of Rust
-
----
-class: middle, left
-
-## Concepts we didn't cover but that are things
+## Further learning
+### Syntax + Concepts we didn't cover but that are things
 
 .pull-left[
 * Tests
@@ -974,6 +968,21 @@ class: middle, left
 * Threads
 * Composition over inheritance
 ]
+
+---
+class: middle, left
+
+## Crates
+
+![cratesio](img/cratesio.png)
+
+???
+
+* Like rubygems.org
+* Easy to add crates to your project
+* Rust's stdlib is small and stable
+* Crates can change more rapidly and more radically independently of Rust
+
    </textarea>
     <script src="remark.js" type="text/javascript">
     </script>

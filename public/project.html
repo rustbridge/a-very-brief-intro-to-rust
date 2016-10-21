@@ -209,6 +209,7 @@ class: middle, left
 
 * Change the URL to `https://brson.github.io/demo/wishlist.html`
 * Take a look in your browser, it's basically an Amazon wishlist page
+* Ultimate goal: Titles and prices
 * Web devs: inspect element!
 
 ---
@@ -232,8 +233,12 @@ class: middle, left
 
 * Have to make our `String` into a string slice first (sorry sorry)
 
-```
-let document = Document::from(&body[..]);
+```rust
+use select::document::Document;
+
+// ...
+
+let document = Document::from(body.as_str());
 println!("doc = {:#?}", document);
 ```
 
@@ -247,10 +252,22 @@ class: middle, left
 
 ## Let's `find` something!
 
-```
+* What's `Predicate`?
+* Try using `find` to select something specific!
+* Print with debug formatting to see what you get!
+
+???
+
+* Let everyone try for a bit
+* Discuss variety of solutions
+
+---
+class: middle, left
+
+```rust
 use select::predicate::{Attr, Class};
 
-...
+// ...
 
 let wrapper = document.find(Attr("id", "item-page-wrapper"));
 let rows = wrapper.find(Class("a-fixed-right-grid"));
@@ -264,7 +281,15 @@ class: middle, left
 
 ## Let's extract just the title and the price.
 
-```
+* Iterate through each row and get the title and price
+* What about the "idea" row?
+
+???
+
+---
+class: middle, left
+
+```rust
 for row in rows.iter() {
     let title_node = row.find(Name("h5")).first();
     let price_node = row.find(Class("a-color-price")).first();
