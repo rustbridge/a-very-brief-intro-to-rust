@@ -1,8 +1,10 @@
 # a-very-brief-intro-to-rust
 
-This is the content being used at the Pittsburgh RustBridge workshop Oct 21-22.
+This is content that has been used at various RustBridge workshops to introduce
+Rust.
 
-Please see http://rustbridge.integer32.com for the rendered content.
+Please see https://rustbridge.github.io/a-very-brief-intro-to-rust for the
+rendered content.
 
 Remark tips:
 
