@@ -1,5 +1,0 @@
-(function(){
-var json = {"huiPromotionActivityList":[],"huiRecmdActivityList":[]};
-    window["youdaogouwupi1471126572000"](json);
-
-})();
