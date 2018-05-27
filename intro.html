@@ -283,14 +283,13 @@ class: middle, left
 
 ```rust
 fn main() {
-    let age = 13u32;
-    if n < 13 {
-        println!("You may see G or PG movies");
-    } else if n < 17 {
-        println!("You may see G, PG, or PG-13 movies");
+    let height = 167u32;
+    if n < 150 {
+        println!("You're too small to go on the rollercoaster.");
+    } else if n < 200 {
+        println!("You may go on the rollercoaster!");
     } else {
-        println!("You are old.");
-        println!("You may see G, PG, PG-13, or R movies");
+        println!("You're too tall to go on the rollercoaster.");
     }
 }
 ```
@@ -308,13 +307,12 @@ Kinda like a switch. But better.
 
 ```rust
 fn main() {
-    let age = 13u32;
+    let age = 167u32;
     match age {
-        0...12 => println!("You may see G or PG movies"),
-        13...16 => println!("You may see G, PG, or PG-13 movies"),
+        0...150 => println!("You're too small to go on the rollercoaster."),
+        150...200 => println!("You may go on the rollercoaster!"),
         _ => {
-            println!("You are old.");
-            println!("You may see G, PG, PG-13, or R movies");
+            println!("You're too tall to go on the rollercoaster.");
         },
     }
 }
