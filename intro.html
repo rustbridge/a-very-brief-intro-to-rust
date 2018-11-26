@@ -519,15 +519,21 @@ class: middle, left
 ## Tests
 
 ```rust
+#[derive(PartialEq, Debug)] // necessary to compare enum values
+enum TrafficLight {
+    Red,
+    Yellow,
+    Green,
+}
+
 #[test]
 fn new_person_setup() {
-    let p1 = Person::new();
+    let light = TrafficLight::Yellow;
 
-    assert!(p1.is_valid());
-    assert_eq!(p1.email, None);
+    assert!(light == TrafficLight::Yellow);
+    assert_eq!(light, TrafficLight::Yellow);
 
-    let p2 = Person::new();
-    assert_ne!(p1.id, p2.id);
+    assert_ne!(light, TrafficLight::Red);
 }
 ```
 
@@ -554,6 +560,7 @@ fn not_implemented_yet() {
 ???
 
 - Test still has to compile, but doesn't have to pass
+- To run ignored tests anyway `cargo test -- --ignored`
 
 ---
 class: middle, left
