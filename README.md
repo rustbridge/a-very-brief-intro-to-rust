@@ -3,7 +3,7 @@
 This is content that has been used at various RustBridge workshops to introduce
 Rust.
 
-Please see https://rustbridge.github.io/a-very-brief-intro-to-rust for the
+Please see https://intro.rustbridge.com for the
 rendered content.
 
 Remark tips:
