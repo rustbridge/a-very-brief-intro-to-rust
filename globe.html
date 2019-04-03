@@ -90,7 +90,7 @@ var locations = svg.append('svg:g').attr('id', 'locations');
 
 var rotate = d3_geo_greatArcInterpolator();
 
-d3.json("index.json", function(error, world) {
+d3.json("/js/index.json", function(error, world) {
   var countries = topojson.object(world, world.objects.countries).geometries,
       i = -1,
       n = countries.length;
