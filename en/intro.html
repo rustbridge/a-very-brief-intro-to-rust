@@ -641,6 +641,8 @@ let b = instructors.pop();
 println!("b is {:?}", b);
 ```
 
+**Is this code safe?**
+
 ???
 
 * When we pop off the last element of a vec, there might not be one!
@@ -672,7 +674,7 @@ class: middle, left
 ## Using Option
 
 ```rust
-let b: Option<&str> = None;
+let b: Option<&str> = Some("Carol");
 
 match b {
     Some(name) => {
@@ -772,8 +774,8 @@ class: middle, left
 fn add_five_to_string(s: String) ->
     Result<i32, std::num::ParseIntError> {
 
-    let ans = s.parse::<i32>()? + 5;
-    Ok(ans)
+    let answer = s.parse::<i32>()? + 5;
+    Ok(answer)
 }
 ```
 
@@ -804,10 +806,10 @@ class: middle, left
 ### `String`
 
 * Allocated
-* Growable
+* Growable (you can append stuff to them)
 * Can create with either:
   * `something.to_string()`
-  * `String::from("string slice")`
+  * `String::from("string content")`
 
 ### `&str`
 
@@ -847,6 +849,10 @@ class: middle, left
 * A view into some data
 * Points to the start of the view
 * Knows how long the view is
+
+???
+
+* Imagine having some data allocated and instead of explicitly accessing it, you just want a temporary accessor to a certain part of it
 
 ---
 class: middle, left
@@ -891,7 +897,7 @@ class: middle, left
 
 ## Ownership
 
-* The *owner* of a resource is who is responsible for cleaning it up.
+* The *owner* of something is who is responsible for cleaning it up.
 * When owners go out of scope, Rust automatically calls the cleanup code.
 
 ```rust
@@ -899,6 +905,8 @@ fn main() {
     let v = vec![1, 2, 3];
     println!("v is valid here! {:?}", v);
 }
+
+// v is not valid here anymore!
 ```
 
 ???
@@ -938,16 +946,15 @@ class: middle, left
 
 * Let you borrow a resource you don't own
 * A reference is only valid as long as the owner is valid. Rust ensures you aren't using an invalid reference *at compile time*.
-* Slices are a specific type of reference.
 
 ```rust
 fn main() {
     let v = vec![1, 2, 3];
-    print_vec(&v[..]);
-    print_vec(&v[..]);
+    print_vec(&v);
+    print_vec(&v);
 }
 
-fn print_vec(v: &[i32]) {
+fn print_vec(v: &Vec<i32>) {
     println!("v is {:?}", v);
 }
 ```
@@ -968,12 +975,12 @@ class: middle, left
 ```rust
 fn main() {
     let mut v = vec![1, 2, 3];
-    change_vec(&mut v[..]);
-    change_vec(&mut v[..]);
+    change_vec(&mut v);
+    change_vec(&mut v);
     println!("v is {:?}", v);
 }
 
-fn change_vec(v: &mut [i32]) {
+fn change_vec(v: &mut Vec<i32>) {
     v[0] *= 5;
 }
 ```
@@ -1033,7 +1040,7 @@ class: middle, left
 
 ## Resources
 
-* [The Rust Programming Language Book](https://doc.rust-lang.org/book/second-edition/)
+* [The Rust Programming Language Book](https://doc.rust-lang.org/stable/book/)
 * [Rust by Example](http://rustbyexample.com/)
 * [Rust learning](https://github.com/ctjhoa/rust-learning/)
 * [into_rust() screencasts](http://intorust.com/)
@@ -1047,8 +1054,8 @@ class: middle, left
 
 ???
 
-* Like rubygems.org
-* Easy to add crates to your project
+* Like rubygems.org, npmjs.com
+* Easy to add crates (libraries) to your project
 * Rust's stdlib is small and stable
 * Crates can change more rapidly and more radically independently of Rust
 * We're going to be using some crates for our project!
