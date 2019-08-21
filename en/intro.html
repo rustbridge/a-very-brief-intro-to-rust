@@ -217,7 +217,7 @@ println!("I have {} apples", apples);
 ???
 
 * Have someone read the error message
-* Point out that the compiler caught this for us before the program ran 
+* Point out that the compiler caught this for us before the program ran
 
 ---
 class: middle, left
@@ -253,7 +253,7 @@ Rust is strongly, statically typed. Common fundamental types are:
 ???
 
 * Strongly typed means that type safety is enforced more strongly. The compiler checks whether all types are correctly specified most of the time
-* Statically typed means that types are known at compile time. You can't have a variable whose type we don't know  
+* Statically typed means that types are known at compile time. You can't have a variable whose type we don't know
 ---
 class: middle, left
 
@@ -327,8 +327,8 @@ Kinda like a switch. But better.
 fn main() {
     let height = 167u32;
     match height {
-        0...150 => println!("You're too small to go on the rollercoaster."),
-        150...200 => println!("You may go on the rollercoaster!"),
+        0..=150 => println!("You're too small to go on the rollercoaster."),
+        150..=200 => println!("You may go on the rollercoaster!"),
         _ => {
             println!("You're too tall to go on the rollercoaster.");
         },
@@ -392,7 +392,7 @@ fn main() {
 ```
 
 --
-  
+
 What happens in the last example if we try to access an element out of bounds of the array?
 
 ```rust
