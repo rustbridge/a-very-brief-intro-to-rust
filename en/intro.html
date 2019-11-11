@@ -381,6 +381,26 @@ println!("The color is {:?}", color);
 ---
 class: middle, left
 
+## Vectors
+
+Most of the time, you probably want a vector rather than array.
+
+```rust
+let mut prices = vec![30, 100, 2];
+prices[0] = 25;
+prices.push(40);
+println!("All the prices are: {:?}", prices);
+```
+
+???
+
+* `vec!` shorthand macro, the rest is like an array
+* Vecs can change in size at runtime
+* So we can call the `push` method
+
+---
+class: middle, left
+
 ## Quick but Useful Tangent #1: `println!` formatting
 
 * `{}` is called `Display` formatting; only on primitive types by default
@@ -418,25 +438,6 @@ println!("The 10th element is {:?}", color[index]);
 * It's a `panic!` behind the scenes!
 * This has to do with safety-- don't continue with bad data!
 
----
-class: middle, left
-
-## Vectors
-
-Most of the time, you probably want a vector rather than array.
-
-```rust
-let mut prices = vec![30, 100, 2];
-prices[0] = 25;
-prices.push(40);
-println!("All the prices are: {:?}", prices);
-```
-
-???
-
-* `vec!` shorthand macro, the rest is like an array
-* Vecs can change in size at runtime
-* So we can call the `push` method
 
 ---
 class: middle, left
