@@ -380,6 +380,26 @@ println!("El color es {:?}", color);
 ---
 class: middle, left
 
+## Vectores
+
+La mayor parte del tiempo, probablemente quieras un vector más que un array.
+
+```rust
+let mut prices = vec![30, 100, 2];
+prices[0] = 25;
+prices.push(40);
+println!("Todos los precios son: {:?}", prices);
+```
+
+???
+
+* La abreviatura de la macro `vec!`, el resto es como un array
+* Los vectores pueden cambiar en tamaño en tiempo de ejecución
+* Así que podemos llamar al método `push`
+
+---
+class: middle, left
+
 ## Rápida pero Útil Tangente #1: Formateando con `println!`
 
 * `{}` es llamado formateo `Display`; sólo en tipos primitivos por defecto
@@ -417,25 +437,6 @@ println!("El décimo elemento es {:?}", color[index]);
 * Esto es un `panic!` destrás de escenas!
 * Tiene que hacerse con seguridad ¡No continues con malos datos!
 
----
-class: middle, left
-
-## Vectores
-
-La mayor parte del tiempo, probablemente quieras un vector más que un array.
-
-```rust
-let mut prices = vec![30, 100, 2];
-prices[0] = 25;
-prices.push(40);
-println!("Todos los precios son: {:?}", prices);
-```
-
-???
-
-* La abreviatura de la macro `vec!`, el resto es como un array
-* Los vectores pueden cambiar en tamaño en tiempo de ejecución
-* Así que podemos llamar al método `push`
 
 ---
 class: middle, left
@@ -856,38 +857,6 @@ fn fizz(num: u32) -> String {
 ---
 class: middle, left
 
-## Slices
-
-* Una vista en algunos datos
-* Apunta al inicio de la vista
-* Sabe cuánto tiempo durará la vista
-
-???
-
-* Imagina tener algunos datos asignados y en lugar de acceder explícitamente a ellos, solo deseas un acceso temporal a una parte determinada de ellos
-
----
-class: middle, left
-
-## Sintaxis de slice
-
-* Tipo Vector: `Vec<i32>`
-* Tipo de slice correspondiente: `&[i32]`
-
-```rust
-let v = vec![1, 2, 3, 4, 5];
-let piece = &v[3..];
-println!("Pieza de v = {:?}", piece);
-```
-
-???
-
-* Para cualquier tipo de cosa que pongas en un vector
-* Sintaxis de rango
-
----
-class: middle, left
-
 ## String Slices
 
 ```rust
@@ -901,8 +870,6 @@ println!("La parte es '{}'", part);
 
 * Vec<T> : &[T] :: String : &str
 * Con string slices, los índices son bytes, no chars, larga historia
-
-* Todos los tipos de slices son útiles porque te permiten compartir data sin copiar todo a su alrededor
 
 ---
 class: middle, left
