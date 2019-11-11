@@ -857,38 +857,6 @@ fn fizz(num: u32) -> String {
 ---
 class: middle, left
 
-## Slices
-
-* A view into some data
-* Points to the start of the view
-* Knows how long the view is
-
-???
-
-* Imagine having some data allocated and instead of explicitly accessing it, you just want a temporary accessor to a certain part of it
-
----
-class: middle, left
-
-## Slice syntax
-
-* Vector type: `Vec<i32>`
-* Corresponding slice type: `&[i32]`
-
-```rust
-let v = vec![1, 2, 3, 4, 5];
-let piece = &v[3..];
-println!("piece of v = {:?}", piece);
-```
-
-???
-
-* For any type of thing you put in a vector
-* Range syntax
-
----
-class: middle, left
-
 ## String Slices
 
 ```rust
@@ -902,8 +870,6 @@ println!("part is '{}'", part);
 
 * Vec<T> : &[T] :: String : &str
 * With string slices, indices are bytes, not chars, long story
-
-* All kinds of slices are useful because they let you share data without copying all of it around
 
 ---
 class: middle, left
