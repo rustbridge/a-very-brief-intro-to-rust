@@ -312,7 +312,7 @@ class: middle, left
 
 ```rust
 fn main() {
-    let height = 167u32;
+    let height: u32 = 167;
     if height < 150 {
         println!("You're too small to go on the rollercoaster.");
     } else if height < 200 {
@@ -337,7 +337,7 @@ Kinda like a switch. But better.
 
 ```rust
 fn main() {
-    let height = 167u32;
+    let height: u32 = 167;
     match height {
         0..=150 => println!("You're too small to go on the rollercoaster."),
         150..=200 => println!("You may go on the rollercoaster!"),
