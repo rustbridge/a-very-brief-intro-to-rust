@@ -340,9 +340,7 @@ fn main() {
     match height {
         0..=150 => println!("Eres demasiado pequeño para ir en la montaña rusa."),
         150..=200 => println!("¡Puedes ir en la montaña rusa!"),
-        _ => {
-            println!("Eres demasiado alto para ir en la montaña rusa.");
-        },
+        _ => println!("Eres demasiado alto para ir en la montaña rusa."),
     }
 }
 ```
@@ -539,9 +537,7 @@ match game {
     GameType::SinglePlayer => println!("¿Qué tal un solitario?"),
     GameType::MultiPlayer(2) => println!("¿Qué tal un ajedrez?"),
     GameType::MultiPlayer(4) => println!("¿Qué tal un bridge?"),
-    GameType::MultiPlayer(num) => {
-        println!("¿Qué tal un juego para {} jugadores?", num)
-    },
+    GameType::MultiPlayer(num) => println!("¿Qué tal un juego para {} jugadores?", num),
 }
 ```
 
@@ -690,12 +686,8 @@ class: middle, left
 let b: Option<&str> = Some("Carol");
 
 match b {
-    Some(name) => {
-        println!("El otro nombre tiene {} bytes de longitud", name.len())
-    },
-    None => {
-        println!("¡Sin nombre!")
-    }
+    Some(name) => println!("El otro nombre tiene {} bytes de longitud", name.len()),
+    None => println!("¡Sin nombre!"),
 }
 ```
 
