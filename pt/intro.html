@@ -1,0 +1,1042 @@
+---
+layout: default
+title: Introdução a Rust
+---
+
+class: middle, center
+
+![ferris](/img/ferris.gif)
+# Uma Curta Introdução a Rust
+
+???
+
+* Esse é o Ferris, nosso mascote não oficial!
+
+---
+class: middle, left
+
+## O que vamos cobrir hoje
+
+* O que é Rust? O que é cargo? Como configurá-los?
+* Syntax + Conceitos cuja a maior parte é igual à outras linguagens
+* Syntax + Conceitos particulares ao Rust
+* Como continuar a partir daqui
+
+---
+class: middle, left
+
+## O que é Rust?
+
+Rust é uma linguagem de baixo nível que roda incrivelmente rápida, previne
+segfaults e garante segurança de thread.
+
+--
+
+**Rust é uma linguagem de baixo nível que empodera todo mundo a construir software
+ confiável e eficiente.**
+
+???
+
+* O que isso significa?
+* Perguntar a classe para definir "baixo nível" e o que eles pensam quando escutam
+ isso
+* eficiente = tão rápido quanto C
+* confiável = não vai crashar por causa de memória mal gerenciada
+* Segurança de memória também cobre casos de buffer over/underflows
+
+---
+class: middle, left
+
+## O que é cargo Cargo?
+
+* Package manager
+* Ferramenta para fazer build
+* Rodador de testes
+* Gerador de documentação
+
+???
+
+* Várias dessas coisas são ferramentas para tornar a vida do usuário mais fácil
+como rustc e rustdoc.
+
+---
+class: middle, left
+
+## Instalando Rust
+
+O Rust inclui Cargo por default.
+
+VOcê pode instalar Rust visitando https://rustup.rs.
+
+---
+class: middle, left
+
+## Configurando um Projeto
+
+Nós vamos criar um projeto *binário*; a outra opção é criar uma *biblioteca*.
+
+`cargo new` criará um esqueleto de configuração de um projeto para você.
+
+1. `cd` para um diretório onde você queira guardar o código
+2. `cargo new rustbridge`
+3. `cd rustbridge`
+
+Se você usa uma ferramenta de controle de versão (Git por exemplo), agora é uma
+boa hora pra fazer um commit.
+
+???
+
+Se você estiver escrevendo uma <strong>biblioteca</strong>, significa que você
+pretende que seu código seja usado pela aplicação de outra pessoa como um crate
+ou módulo.
+
+Se você está escrevendo um <strong>binário</strong>, significa que você quer
+escrever código que pode ser compilado em um binário que outra pessoa pode
+rodar. Se você quer fazer isso, você vai precisar usar um `main.rs`. Dentro de
+`main.rs` você tem que ter uma função main.
+
+---
+class: middle, left
+
+## Arquivos criados
+
+- `Cargo.toml`: metadata sobre seu projeto e suas dependências
+- `.gitignore`: ignora arquivos compilados feitos pelo Rust quando adicionados ao Git
+- `src/main.rs`: onde seu código Rust vai
+
+---
+class: middle, left
+
+## `Cargo.toml`
+
+```toml
+[package]
+name = "rustbridge"
+version = "0.1.0"
+authors = ["Seu Nome <seunome@voce.com>"]
+edition = "2018"
+
+[dependencies]
+```
+
+???
+
+* Cargo pegou seu nome do seu env, provavelmente do git.
+* Se não estiver lá, ou se estiver errado, vá em frente e conserte.
+
+---
+class: middle, left
+
+## `src/main.rs`
+
+```rust
+fn main() {
+    println!("Olá, mundo!");
+}
+```
+
+???
+
+* `fn` começa a definição de uma função
+* `main` é o mesmo nome da função
+* `main` fn é especial - o ponto de entrada do seu binário
+* chaves ao redor do corpo da função
+* `println!` é um macro (não se preocupe) isso imprime na tela
+* Fim de linhas com ponto e vírgula (na maior parte do tempo, a gente vai falar
+sobre isso mais tarde)
+
+---
+class: middle, left
+
+## Rode!
+
+* `cargo run`
+* Deve imprimir "Olá, mundo!"
+* Agora você tem mais arquivos:
+  * diretório `target`: todas as coisas que foram geradas no build (não serão adicionadas ao Git)
+  * `Cargo.lock`: trava suas dependências (nós não temos nenhuma ainda)
+* Tente imprimir outras coisas!
+* Tente imprimir duas coisas!
+
+???
+
+* Travar dependências significa escrever todas as versões em um arquivo autogenerado para que outras pessoas que trabalhem no seu projeto tenham exatamente a mesma versão que você
+
+---
+class: middle, left
+
+## Documentação Offline
+
+* Vários livros estão instalados, `rustup doc -h` para listá-los
+* Procure: procure por uma caixa de busca ou o símbolo 🔍 no topo das páginas
+* Material e buscas são utilizáveis de forma offline
+
+---
+class: middle, left
+
+## Documentação da API
+
+https://doc.rust-lang.org/
+ou
+`rustup doc`
+
+Clique em "Standard Library API Reference"
+ou
+`rustup doc --std`
+
+`rustup doc --std --path` to show local path
+
+---
+class: middle, left
+
+## Syntax + Conceitos cuja a maior parte é igual à outras linguagens
+
+---
+class: middle, left
+
+## Comentários
+
+* Barra dupla no começo de uma linha (`//`)
+* Tente comentar um de suas linhas!
+* Há outros tipos de comentários mas esse é o mais comum
+
+---
+class: middle, left
+
+## Variáveis
+
+```rust
+let nome = "Ashley";
+let idade = 30;
+println!("Oi, {}! Você tem {} anos de idade.", nome, idade);
+```
+
+* Tente criar mais variáveis e imprimi-las em um único `println!`
+
+???
+
+* `let`, nome de variável, um igual, valor, ponto e vírgular.
+* Chaves no println, então valores que deveriam estar lá
+
+---
+class: middle, left
+
+## Experimentando
+
+O que acontece se você rodar isso:
+
+```rust
+let laranjas = 100;
+laranjas += 50;
+println!("Eu tenho {} laranjas", laranjas);
+```
+
+???
+
+* Fazer com que alguém leia a mensagem de error
+* Aponte que o compilador pegou esse erro pra gente antes do programa rodar
+
+---
+class: middle, left
+
+## Mutabilidade
+
+Variáveis são *imutáveis* por padrão em Rust.
+
+```rust
+let mut laranjas = 100;
+laranjas += 50;
+println!("I have {} laranjas", laranjas);
+```
+
+???
+
+* Rust têm influências funcionais
+* Mudar um valor onde você não esperava mudar é uma fonte comum de bugs.
+
+---
+class: middle, left
+
+## Tipos
+
+Rust é fortemente, estaticamente tipada. Tipos comuns fundamentais são:
+
+- `u32`: número inteiro de 32 bits unsigned
+- `i32`: número inteiro de 32 bits signed
+- `f64`: número de ponto flutuante
+- `String` e / ou` & str`: mais sobre isso mais tarde
+- `bool`: um booleano
+
+???
+
+* Fortemente tipado significa que segurança de tipo é forçada. O compilador checa se todos os tipos estão corretamente especificados na maior parte das vezes
+* Estaticamente tipado significa que os tipos são conhecidos em tempo de compilação. Você não pode ter uma variável cujo tipo não sabemos
+---
+class: middle, left
+
+## Inferência de tipo
+
+* Todo valor tem um tipo que o compilador tem que conhecer.
+* Na maior parte do tempo, o compilador consegue adivinhar os tipos.
+* Algumas ele não consegue, e você vai receber um error e precisará especificar
+o tipo.
+* Nós poderíamos ter escrito `let idade: i32 = 30;`
+* Um lugar no qual nós **precisamos** especificar tipos é nas definições de
+funções.
+
+???
+
+* Tipos vem após o nome.
+* O compilador é seu amigo! Ele checa se você tem alguma definição de tipo faltando qual ele não consegue configurar e te fala como consertá-los
+
+---
+class: middle, left
+
+## Funções
+
+```rust
+fn add_cinquenta(n: i32) -> i32 {
+    n + 50
+}
+
+fn main() {
+    println!("Lots: {}", add_cinquenta(100));
+}
+```
+
+???
+
+* Argumento/parâmetro, nomeado com o tipo especificado
+* `->` mais o tipo de retorno, se está retornando um valor
+* Sem ponto e vírgula na última linha quando retornando aquele valor
+* Sem a palavra chave `return` a menos que esteja fazendo um retorno antecipado
+* Chamadas de função sempre usam parêntesis, mesmo se não tiverem argumentos
+
+---
+class: middle, left
+
+## Condicionais: `if`
+
+```rust
+fn main() {
+    let altura: u32 = 167;
+    if altura < 150 {
+        println!("Você é muito pequeno pra ir na montanha russa.");
+    } else if altura > 150 && altura <= 200 {
+        println!("Você pode entrar na montanha russa!");
+    } else {
+        println!("Você é muito alto pra ir na montanha russa.");
+    }
+}
+```
+???
+
+* Sem parêntesis! Isso não é opcional
+* Atalho para anotação de tipo numérico
+* Idade não pode ser negativo, o compilador vai se certificar que não temos idades negativas
+
+---
+class: middle, left
+
+## Condicionais: `match`
+
+Parece com um switch, mas é melhor.
+
+```rust
+fn main() {
+    let altura: u32 = 167;
+    match altura {
+        0..=149 => println!("Você é muito pequeno para ir na montanha russa."),
+        150..=200 => println!("Você pode ir na montanha russa!"),
+        _ => println!("Você é muito alto pra ir na montanha russa."),
+    }
+}
+```
+
+???
+
+* Underscore engloba todos os casos
+* Padrão, rocket, código para executar
+* Vírgula no final do código para rodar
+* Se o código contém mais de uma linha use chaves para engloba-lo
+* Uma vírgula trailing na última linha é o estilo
+* E se nós tirarmos a linha com o underscore? Essa é uma vantagem do `match` sobre `if`/`else if`/`else`
+
+---
+class: middle, left
+
+## Arrays
+
+Parecem com arrays em outras linguagens, mas pior.
+
+```rust
+let mut cor = [255, 0, 255];
+cor[0] = 100;
+println!("A cor é {:?}", cor);
+```
+
+???
+
+* Arrays tem um tamanho fixo conhecidos em tempo de compilação
+* Colchetes, vírgulas
+* Indexam para um lugar específico
+* Precisa de formatação de debug no println já que o Rust não sabe como você quer mostrar arrays para os usuários
+* Para o dia a dia você provavelmente não vai precisar de arrays. Não muitas pessoas os usam
+
+---
+class: middle, left
+
+## Vetores
+
+Na maior parte do tempo, você provavelmente quer usar um vetor ao invés de um
+array.
+
+```rust
+let mut precos = vec![30, 100, 2];
+precos[0] = 25;
+precos.push(40);
+println!("Todos os precos são: {:?}", precos);
+```
+
+???
+
+* `vec!` é um macro de atalho, o resto é exatamente como um array
+* Vecs podem mudar de tamanho em tempo de execução
+* Então podemos usar o método push
+
+---
+class: middle, left
+
+## Tangente rápida mas útil #1: formatação do `println!`
+
+* `{}` é chamado formatação de `Display`; apenas em tipos primitivos por padrão
+* `{:?}` é chamado formatação de `Debug`; mais tipos tem isso por padrão
+* Display é para usuários finais, Debug é para... debugging
+* Rust não quer fazer suposições
+* Meu favorito: `{:#?}` = debug bonito
+* [`fmt` docs](https://doc.rust-lang.org/stable/std/fmt/index.html)
+
+---
+class: middle, left
+
+## Tangente rápida mas útil #2: `panic!`
+
+* Panic para seu programa com uma mensagem.
+
+```rust
+fn main() {
+    panic!("aaaaa!");
+}
+```
+
+--
+ 
+O que acontece no último exemplo se nós tentarmos acessar um elemento fora dos limites de um array?
+
+```rust
+let cor = [255, 0, 255];
+let index = 9;
+println!("O décimo elementto é {:?}", cor[index]);
+```
+
+???
+
+* É um `panic!` por baixo dos panos!
+* Isso está relacionado com segurança-- não continue com dados ruins!
+
+
+---
+class: middle, left
+
+## Looping (e ranges)
+
+* `for` loops são muito comuns:
+
+```rust
+for i in 0..10 {
+    println!("Número {}", i);
+}
+```
+
+```rust
+let nomes = vec!["Carol", "Jake", "Marylou", "Bruce"];
+for nome in nomes.iter() {
+    println!("Hi {}!", nome);
+}
+```
+
+* Novamente, sem parênteses
+* `loop` cria um loop infinito
+* `while` loops executam enquanto sua condição é verdadeira
+* `break` sai do loop atual
+
+???
+
+* O loop `for` significa que você nunca passará do fim de um array
+* O que é um iter? É um tipo compartilhado para coisas que podem ser iteradas, muitos outros tipos podem ser transformados em iters
+
+---
+class: middle, left
+
+## Iteradores
+
+```rust
+for i in (0..10).filter(|x| x % 2 == 0) {
+    println!("i = {}", i);
+}
+
+for i in (0..10).map(|x| x * x ) {
+    println!("i = {}", i);
+}
+
+let sum = (0..10).fold(0, |acc, x| acc + x);
+println!("sum = {}", sum);
+```
+
+* Veja [Iterator docs](https://doc.rust-lang.org/stable/std/iter/trait.Iterator.html) para mais diversão com iterators.
+* O `|x| x % 2 == 0` no exemplo é uma closure, elas podem ser usadas em outras situações também.
+
+???
+
+* Uma closure também é conhecida como uma lambda, ou uma função anônima. É basicamente uma função que não está ligada a uma variável.
+
+---
+class: middle, left
+
+## Enums
+
+* Combinam bem com `match`
+
+```rust
+enum Semaforo {
+    Vermelho,
+    Amarelo,
+    Verde,
+}
+let luz = Semaforo::Verde;
+
+match luz {
+    Semaforo::Vermelho => println!("PARE!"),
+    Semaforo::Amarelo => println!("Devagar!"),
+    Semaforo::Verde => println!("Vai vai vai!"),
+}
+```
+
+???
+
+* namespacing é dois dois pontos
+* Mostre avisos!
+
+---
+class: middle, left
+
+## Enums
+
+* Melhor que outras linguagens, podem conter valores!
+
+```rust
+enum TipoJogo {
+    SinglePlayer,
+    MultiPlayer(u32),
+}
+
+let jogo = TipoJogo::MultiPlayer(4);
+
+match jogo {
+    TipoJogo::SinglePlayer => println!("Que tal paciência?"),
+    TipoJogo::MultiPlayer(2) => println!("Que tal damas?"),
+    TipoJogo::MultiPlayer(4) => println!("Que tal bridge?"),
+    TipoJogo::MultiPlayer(num) => println!("Que tal um jogo de {}-jogadores?", num),
+}
+```
+
+???
+
+* Valores são específicos para cada variante
+* É necessário definir o tipo dos valores nas variantes
+* Destructure = padrões que estão ligados às partes
+* Destructure para tirar valores
+
+---
+class: middle, left
+
+## Testes
+
+```rust
+#[derive(PartialEq, Debug)] // necessário para comparar valores de enum
+enum Semaforo {
+    Vermelho,
+    Amarelo,
+    Verde,
+}
+
+#[test]
+fn new_person_setup() {
+    let luz = Semaforo::Amarelo;
+
+    assert!(luz == Semaforo::Amarelo);
+    assert_eq!(luz, Semaforo::Amarelo);
+
+    assert_ne!(luz, Semaforo::Vermelho);
+}
+```
+
+- Run with `cargo test`
+
+???
+
+- Testes são apenas funções normais que fazem assertions, pequenos testes que checam (na maior parte das vezes) se alguma coisa é igual a outra coisa
+- Ordem não importa nos argumentos de assert_eq/assert_ne
+- Tente escrever um teste que vai falhar e veja como a mensagem de erro se parece
+
+---
+class: middle, left
+
+## Ignorando testes
+
+```rust
+#[test]
+#[ignore]
+fn nao_implementado_ainda() {
+    assert_eq!(true, false);
+}
+```
+
+Para rodar testes ignorados de qualquer jeito: `cargo test -- --ignored`
+
+???
+
+- Testes ainda tem que compilar, mas não precisam passar
+
+---
+class: middle, left
+
+## Pausa de Rustlings!
+
+- [github.com/rust-lang/rustlings](https://github.com/rust-lang/rustlings)
+- Instruções no Readme, pergunte se algo não for claro para você
+
+???
+
+---
+class: middle, left
+
+## Sintaxe + Conceitos particulares do Rust
+
+---
+class: middle, left
+
+## Opção
+
+**Rust não tem `nil`/`null`** então para expressar que um valor pode ser algo ou nada, Rust tem o tipo `Option`.
+
+Option é um enum fornecido pela biblioteca padrão:
+
+```rust
+enum Option<T> {
+    Some(T),
+    None
+}
+```
+
+???
+
+* T é um parâmetro de tipo genérico, significa que pode conter qualquer itpo
+* Não existem mais métodos indefinidos no nil!!!!
+
+---
+class: middle, left
+
+## Usando Option
+
+```rust
+let mut instrutores = vec!["Carol"];
+
+let a = instrutores.pop();
+println!("a é {:?}", a);
+
+let b = instrutores.pop();
+println!("b é {:?}", b);
+```
+
+**Esse código é seguro?**
+
+???
+
+* Quando retiramos o último elemento do vetor, talvez não exista um elemento para ser retirado!
+
+---
+class: middle, left
+
+## Usando Option
+
+```rust
+let a = Some("Carol");
+
+let nome = a.expect("Nenhum nome presente");
+println!("Nome tem {} bytes", nome.len());
+```
+
+???
+
+* Não se pode chamar `len` em um `Option` diretamente, já que ele pode ser `None`!
+* expect entra em ação se receber um None, bom para prototipar ou quando você REALMENTE tem CERTEZA que você tem Some
+    * Coloque uma mensagem de erro em expect que vai te ajudar a debugar
+    * Tente mudar `a` para ver o que acontece
+        `let a: Option<&str> = None;`
+    * Mencione gloss sobre anotação de tipo
+
+---
+class: middle, left
+
+## Usando Option
+
+```rust
+let b: Option<&str> = Some("Carol");
+
+match b {
+    Some(nome) => println!("Outro nome tem {} bytes", nome.len()),
+    None => println!("Nenhum nome!"),
+}
+```
+
+???
+
+* Match é útil para lidar com ambos os casos
+* Option é só mais um enum!
+
+---
+class: middle, left
+
+## Result
+
+* Outro enum da biblioteca padrão
+* Para quando algo pode dar certo ou errado
+* Rust não tem exceções; usar `Result` é como você lida com erros.
+
+```rust
+enum Result<T, E> {
+    Ok(T),
+    Err(E),
+}
+```
+
+???
+
+---
+class: middle, left
+
+## Usando Result
+
+```rust
+let numstr = "6";
+let num = numstr.parse::<i32>();
+println!("num = {:?}", num);
+
+let numstr = "florp";
+let num = numstr.parse::<i32>();
+println!("num = {:?}", num);
+```
+
+???
+
+* Turbofish! Porque nós poderíamos usar o parse em muitos tipos diferentes.
+
+---
+class: middle, left
+
+## Usando Result
+
+```rust
+let numstr = "6";
+let num = numstr.parse::<i32>();
+let num = num.expect("deveria ter um número");
+
+println!("num + 5 = {}", num + 5);
+```
+
+---
+class: middle, left
+
+## Usando Result
+
+```rust
+let numstr = "florp";
+let num = numstr.parse::<i32>();
+
+let resposta = match num {
+    Ok(n) => n + 5,
+    Err(_) => 0,
+};
+println!("Resposta é {}", resposta);
+```
+
+???
+
+* Sim, pode parecer chato ser forçada a pensar sobre casos de falha o tempo todo
+* Mas vai salvar tempo de debugging mais tarde, confia em mim
+* Há muitos métodos em Option e Result para a lidar com formas comuns de usá-los
+
+---
+class: middle, left
+
+## Operador `?` para propagar erros para cima
+
+* Só pode ser usado em métodos/funções que retornam `Result`!!!!
+
+```rust
+fn add_five_to_string(s: String) ->
+    Result<i32, std::num::ParseIntError> {
+
+    let resposta = s.parse::<i32>()? + 5;
+    Ok(resposta)
+}
+```
+
+???
+
+* É comum ter várias funções que retornam `Result` então tenha um match na camada mais exterior
+* Chegando em algum dia: a habilidade de usar `?` em `Option` e outros tipos, em fns que não retornam `Result`
+
+---
+class: middle, left
+
+## Strings: AVISO
+
+* Strings em Rust parecem complicadas
+* Nós sentimos muitos
+
+???
+
+Trabalhar com strings em Rust é mais complicado do que trabalhar com strings em outras linguagens.
+
+Strings são, na verdade, complicadas em todas as linguagens, elas só escondem a complexidade de você e fazem escolhas por você. Rust faz com que você tenha que ser explícito com suas escolhas.
+
+---
+class: middle, left
+
+## Dois tipos de strings
+
+### `String`
+
+* Alocada
+* Aumentável (você pode fazer append nela)
+* Podem ser criadas com:
+  * `algumacoisa.to_string()`
+  * `String::from("conteúdo da string")`
+
+### `&str`
+
+* Pronunciado como "string slice"
+* Dados da string guardados em outro lugar
+* Hardcoded strings são `&str`s
+
+???
+
+* `String` é meio que como um `Vec`
+
+---
+class: middle, left
+
+## Um problema comum
+
+```rust
+fn fizz(num: u32) -> String {
+    if num % 3 == 0 {
+        "Fizz"
+    } else {
+        num.to_string()
+    }
+}
+```
+
+???
+
+* "Fizz" não é uma String é um &str
+* Necessário fazer de Fizz uma string para consertar isso
+
+---
+class: middle, left
+
+## String Slices
+
+```rust
+let s = String::from("Me chame de Ishmael blá blá...");
+let parte = &s[0..4];
+
+println!("parte é '{}'", parte);
+```
+
+???
+
+* Vec<T> : &[T] :: String : &str
+* Com string slices, índices são bytes, não chars, longa história
+
+---
+class: middle, left
+
+## Ownership
+
+* O *owner* de alguma coisa é o responsável por limpá-la.
+* Quando owners saem de escopo, o Rust é automaticamente chamado para limpar o código.
+
+```rust
+fn main() {
+    let v = vec![1, 2, 3];
+    println!("v é válido aqui! {:?}", v);
+}
+
+// v não é mais válido!
+```
+
+???
+
+* Aponte onde s é válido e onde s sai de escopo
+
+---
+class: middle, left
+
+## Transferindo Ownership
+
+* Quando você passa um argumento para uma função, a posse é transferida para a função.
+* Nós dizemos que algo é *movido*.
+
+```rust
+fn main() {
+    let v = vec![1, 2, 3];
+    print_vec(v);
+    print_vec(v);
+}
+
+fn print_vec(v: Vec<i32>) {
+    println!("v é {:?}", v);
+}
+```
+
+???
+
+* Explicar a mensagem de erro.
+* Sim isso é estranho e chato!
+* Não se preocupe, nós vamos consetar!
+
+---
+class: middle, left
+
+## Referências
+
+* Deixam você pegar emprestado um recurso do qual você não é proprietária
+* A referência só é válida de se a proprietária é válida. Rust se certificar que você não está usando uma referência inválida *em tempo de compilação*.
+
+```rust
+fn main() {
+    let v = vec![1, 2, 3];
+    print_vec(&v);
+    print_vec(&v);
+}
+
+fn print_vec(v: &Vec<i32>) {
+    println!("v é {:?}", v);
+}
+```
+
+???
+
+- Então a menos que você *queira* que sua função receba o controle ou a se torne a proprietária de um argumento, você *provavelmente* fará com que a maior parte das suas funções recebam referências como argumentos.
+
+---
+class: middle, left
+
+## Referências mutáveis
+
+* Assim como variáveis, referências são imutáveis por padrão, mas você pode torná-las mutáveis com `mut`.
+* Você pode ter muitas referências imutáveis em um escopo
+* Você só pode ter uma referência mutável e nenhuma referência imutável em um escopo
+
+```rust
+fn main() {
+    let mut v = vec![1, 2, 3];
+    change_vec(&mut v);
+    change_vec(&mut v);
+    println!("v é {:?}", v);
+}
+
+fn change_vec(v: &mut Vec<i32>) {
+    v[0] *= 5;
+}
+```
+
+???
+
+* Esse é o jeito como você faria uma função que permite ter seus argumentos modificados.
+
+---
+class: middle, left
+
+## Não é permitido term referências mutáveis e imutáveis no mesmo escopo.
+
+```rust
+fn main() {
+    let mut v = vec![1, 2, 3];
+
+    let f = &v[0];
+    v.clear();
+
+    println!("O que f seria? {}", f);
+}
+```
+
+???
+
+* Isso não vai compilar-- olhe o erro.
+* Onde está a referência imutável?
+* Onde está a referência mutável?
+* Outras linguagens vão deixar você fazer isso e te dar dados que são inválidos.
+* Vulnerabilidades de segurança!
+
+---
+class: middle, left
+
+## Como continuar a partir daqui
+### Sintaxe + conceitos que não cobrimos mas são coisas relevantes
+
+.pull-left[
+* Lifetimes(Tempos de vida)
+* Tuples(Tuplas)
+* Structs(Estruturas)
+* Methods(Métodos)
+* `if let`
+]
+.pull-right[
+* FFI
+* Traits(Traços)
+* Generics(Genéricos)
+* Macros
+* Threads
+* Composition over inheritance(Composição sobre herança)
+]
+
+---
+class: middle, left
+
+## Resources
+
+* [The Rust Programming Language Book (Inglês)](https://doc.rust-lang.org/stable/book/)
+* [O Livro da Linguagem de Programação Rust (Português)](https://github.com/rust-br/rust-book-pt-br)
+* [Rust by Example](http://rustbyexample.com/)
+* [Rust learning](https://github.com/ctjhoa/rust-learning/)
+* [into_rust() screencasts](http://intorust.com/)
+
+---
+class: middle, left
+
+## Só mais uma coisa: Crates
+
+![cratesio](/img/cratesio.png)
+
+???
+
+* Como se fosse rubygems.org, npmjs.com
+* Fácil de adicionar crates (bibliotecas) no seu projeto
+* A stdlib de Rust é pequena e estável
+* Crates podem mudar mais rápido e mais radicalmente independente de Rust
+* Nós vamos usar alguns crates no nosso projeto!
