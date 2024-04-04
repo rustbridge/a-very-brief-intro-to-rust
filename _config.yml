@@ -1,6 +1,0 @@
-title: "A Very Brief Intro to Rust"
-description: "An inclusive workshop program for newcomers to Rust"
-markdown: "kramdown"
-kramdown:
-  parse_block_html: true
-permalink: pretty

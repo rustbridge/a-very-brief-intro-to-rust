@@ -1,0 +1,39 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import "water.css/out/water.css";
+
+const guides = await getCollection(
+  "guides",
+  (guide) => !["intro"].includes(guide.slug),
+);
+---
+
+<Layout>
+  <h1>RustBridge Introifier</h1>
+
+  <p>
+    This is the next version of the RustBridge intro. We've built it to cater to
+    a mix-and-match approach: You do the intro during the first half of the day,
+    and then pick what project you want to do during the rest of it.
+  </p>
+
+  <p>
+    To support this approach, you can select a project that you'd like to do
+    during your workshop, and the site will give you a schedule presentation
+    featuring that project!
+  </p>
+
+  <h3>Available Projects</h3>
+
+  <ul>
+    {
+      guides.map((guide) => (
+        <li>
+          <a href={`/with-${guide.slug}`}>{guide.data.name}</a> -{" "}
+          {guide.data.description}
+        </li>
+      ))
+    }
+  </ul>
+</Layout>
