@@ -10,3 +10,12 @@ Reveal tips:
 
 * `o` switches to observer view
 * `n` for viewing notes
+
+## Local Development
+
+Clone the repository, then install dependencies using npm, and run `npm run dev`:
+
+```sh
+npm install
+npm run dev
+```
