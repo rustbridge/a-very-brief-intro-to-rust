@@ -18,5 +18,5 @@ const { guide } = Astro.props;
 ---
 
 <Layout>
-  <Deck client:only="svelte" url={Astro.url}>{guide.body}</Deck>
+  <Deck client:only="svelte">{guide.body}</Deck>
 </Layout>

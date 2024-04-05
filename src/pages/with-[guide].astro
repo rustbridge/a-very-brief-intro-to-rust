@@ -19,7 +19,7 @@ const { guide } = Astro.props;
 ---
 
 <Layout>
-  <Deck client:only="svelte" url={Astro.url}>
+  <Deck client:only="svelte">
     {hello.rawContent}
 
     - [{guide.data.description}](/guides/{guide.slug})

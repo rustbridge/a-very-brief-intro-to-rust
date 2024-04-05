@@ -7,7 +7,7 @@ const guide = await getEntry("guides", "intro");
 ---
 
 <Layout>
-  <Deck client:only="svelte" url={Astro.url}>
+  <Deck client:only="svelte">
     {guide.body}
   </Deck>
 </Layout>

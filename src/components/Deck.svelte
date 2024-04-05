@@ -10,7 +10,8 @@
   import "./deck.css";
 
   export let centered = false;
-  export let url;
+
+  let url = window.location;
 
   onMount(() => {
     Reveal.initialize({
