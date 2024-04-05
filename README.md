@@ -6,21 +6,16 @@ Rust.
 Please see https://intro.rustbridge.com for the
 rendered content.
 
-Remark tips:
+Reveal tips:
 
-* `p` switches to presenter view
-* `c` for cloned view
+* `o` switches to observer view
+* `n` for viewing notes
 
-## Workshop leaders
+## Local Development
 
-We want to keep track of where RustBridge workshops have happened! Please add
-the city where you're holding the workshop to this repository in two places:
+Clone the repository, then install dependencies using npm, and run `npm run dev`:
 
-1. Add a dot to the globe in the introduction slides by editing globe.html and
-   adding to the `city_data` variable the name of the city and the decimal
-   latitude and longitude.
-2. In the text for the 2nd slide in `intro.html`, change the ordinal number of
-   the workshop that you're running if necessary, and add your workshop's city
-   to the speakers notes for that slide.
-
-Then send a pull request to this repo so that future workshops know about you!!
+```sh
+npm install
+npm run dev
+```

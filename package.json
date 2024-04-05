@@ -1,0 +1,29 @@
+{
+  "private": true,
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.5.10",
+    "@astrojs/svelte": "^5.3.0",
+    "astro": "^4.5.15",
+    "d3": "^7.9.0",
+    "highlight.js": "^11.9.0",
+    "reveal.js": "^5.0.5",
+    "svelte": "^4.2.12",
+    "topojson-client": "^3.1.0",
+    "typescript": "^5.4.3",
+    "water.css": "^2.1.1"
+  },
+  "devDependencies": {
+    "@types/d3": "^7.4.3",
+    "@types/topojson-client": "^3.1.4",
+    "prettier": "^3.2.5"
+  }
+}

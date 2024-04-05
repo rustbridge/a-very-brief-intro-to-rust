@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+:root {
+  --r-main-font: "Open Sans", sans-serif;
+  --r-heading-font: "Open Sans", sans-serif;
+  --r-main-font-size: 25px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  text-transform: initial !important;
+  font-weight: 300 !important;
+}
+
+h3,
+h4 {
+  margin-top: 30px !important;
+}
+
+ul {
+  text-indent: 0 !important;
+  margin-left: 0 !important;
+}
+
+.hljs {
+  padding: 10px !important;
+}
+
+.reveal .slides {
+  text-align: left !important;
+}
+
+.code-wrapper {
+  margin-left: 0 !important;
+}
+
+.center {
+  text-align: center;
+}
+
+.code-wrapper {
+  width: 100% !important;
+}
+
+.spacer {
+  margin-top: 30px;
+}
+
+code {
+  background-color: #eee;
+}

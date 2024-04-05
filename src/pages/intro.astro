@@ -1,0 +1,13 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Deck from "../components/Deck.svelte";
+import { getEntry } from "astro:content";
+
+const guide = await getEntry("guides", "intro");
+---
+
+<Layout>
+  <Deck client:only="svelte">
+    {guide.body}
+  </Deck>
+</Layout>

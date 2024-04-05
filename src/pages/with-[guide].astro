@@ -1,0 +1,27 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import Deck from "../components/Deck.svelte";
+import * as hello from "../hello.md";
+
+export async function getStaticPaths() {
+  const guides = await getCollection(
+    "guides",
+    (entry) => !["intro"].includes(entry.slug),
+  );
+  return guides.map((guide) => ({
+    params: { guide: guide.slug },
+    props: { guide },
+  }));
+}
+
+const { guide } = Astro.props;
+---
+
+<Layout>
+  <Deck client:only="svelte">
+    {hello.rawContent}
+
+    - [{guide.data.description}](/guides/{guide.slug})
+  </Deck>
+</Layout>
