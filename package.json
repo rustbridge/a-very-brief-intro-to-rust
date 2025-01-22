@@ -16,7 +16,7 @@
     "d3": "^7.9.0",
     "highlight.js": "^11.9.0",
     "reveal.js": "^5.0.5",
-    "svelte": "^4.2.12",
+    "svelte": "^4.2.19",
     "topojson-client": "^3.1.0",
     "typescript": "^5.4.3",
     "water.css": "^2.1.1"
